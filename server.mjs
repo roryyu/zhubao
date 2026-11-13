@@ -85,5 +85,5 @@ const server = http.createServer(async (req, res) => {
   } catch (error) { json(res, { code: 50001, msg: error.message, data: null }, 500); }
 });
 server.on('error', e => { console.error(e.message); process.exitCode = 1; });
-server.listen(port, '127.0.0.1', () => console.log(`创觉珠宝 AI 本地版：http://127.0.0.1:${port}/`));
+server.listen(port, '127.0.0.1', () => console.log(`无觉珠宝 AI 本地版：http://127.0.0.1:${port}/`));
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => server.close());

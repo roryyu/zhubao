@@ -21,12 +21,13 @@ async function patch(path, transform, reason) {
 const uiAssets = JSON.parse(await readFile(resolve(root, 'evidence/ui-config-assets.json'), 'utf8'));
 await patch('assets/main-f2a9c0e4.js', s => {
   let text = s.replaceAll('https://cjzbai.com/v1', '/v1').replace('XM="https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com"', 'XM=location.origin').replaceAll('https://via.placeholder.com/400x400/1a1a1a/666666?text=Image+Not+Found', '/local/image-not-found.svg').replaceAll('剩余算力:', '演示算力:').replaceAll('优惠期', '原站参考');
+  text = text.replaceAll('创觉', '无觉').replaceAll('fillText("创"', 'fillText("无"').replaceAll('text-3xl"},"创")', 'text-3xl"},"无")').replaceAll('>创</span>', '>无</span>');
   for (const asset of uiAssets.files) text = text.replaceAll(asset.source, '/' + asset.path);
   text=text.replace('"/src/views/drawApps/2020/index.vue":()=>qt(()=>import("./index-1977b872.js"),[])','"/src/views/drawApps/2020/index.vue":()=>qt(()=>import("./index-1977b872.js"),["assets/ReliefLive-97698c30.css"])');
   return text;
-}, 'Route API and relative media to this local origin; localize observed static and fallback images. No production proxy.');
+}, 'Route API and relative media to this local origin; localize observed static and fallback images; rebrand 创觉/创 marks to 无觉/无. No production proxy.');
 for (const file of await readdir(resolve(dist, 'assets'))) {
-  if (file.endsWith('.js') && file !== 'main-f2a9c0e4.js') await patch('assets/' + file, text => text.replaceAll('优惠期', '原站参考').replaceAll('3D打印标准格式，适合直接打印使用','网格交换格式，打印前须检查封闭性与壁厚'), 'Label original-site pricing as reference, not local model billing.');
+  if (file.endsWith('.js') && file !== 'main-f2a9c0e4.js') await patch('assets/' + file, text => text.replaceAll('优惠期', '原站参考').replaceAll('3D打印标准格式，适合直接打印使用','网格交换格式，打印前须检查封闭性与壁厚').replaceAll('创觉', '无觉'), 'Label original-site pricing as reference, not local model billing; rebrand 创觉 to 无觉.');
 }
 await patch('assets/ReliefLive-b9170ac9.js', text => {
   const lengthStart=text.indexOf('e("section",Qe,');
@@ -59,9 +60,12 @@ await patch('assets/index-2211217c.js',text=>text
   .replace('J.value?(d(),v("div",jt,','!1?(d(),v("div",jt,')
   .replace('"模型面数"','"建模方式"').replace('"几何+纹理"','"彩色材质"'),
   'Expose full-width parametric mesh mode instead of promising unsupported cloud face-count and texture quality tiers.');
-await patch('index.html', s => s.replace(/<script[^>]*id="LA_COLLECT"[^>]*><\/script>/, '').replace(/<script>LA\.init\([\s\S]*?<\/script>/, '').replace('<head>', '<head>\n<script src="/local/bootstrap.js"></script>\n<script defer src="/local/geometry-artifacts.js"></script>'), 'Remove external analytics, initialize a synthetic account and expose real engineering downloads.');
+await patch('index.html', s => s.replace(/<script[^>]*id="LA_COLLECT"[^>]*><\/script>/, '').replace(/<script>LA\.init\([\s\S]*?<\/script>/, '').replace('<head>', '<head>\n<script src="/local/bootstrap.js"></script>\n<script defer src="/local/geometry-artifacts.js"></script>').replace('<link rel="stylesheet" href="/assets/index-65e4d7ab.css">', '<link rel="stylesheet" href="/assets/index-65e4d7ab.css">\n<link rel="stylesheet" href="/local/luxury-theme.css">').replace('<link rel="icon" href="/favicon.ico">', '<link rel="icon" type="image/svg+xml" href="/local/favicon.svg">\n<link rel="icon" href="/favicon.ico">').replaceAll('创觉', '无觉'), 'Remove external analytics, initialize a synthetic account, expose real engineering downloads, apply the luxury black-gold theme overlay and rebrand 创觉 to 无觉.');
 await mkdir(resolve(dist, 'local'), { recursive: true });
 await cp(resolve(root,'src/geometry-artifacts.js'),resolve(dist,'local/geometry-artifacts.js'));
+await cp(resolve(root,'src/luxury-theme.css'),resolve(dist,'local/luxury-theme.css'));
+await cp(resolve(root,'src/brand-mark.svg'),resolve(dist,'local/favicon.svg'));
+await cp(resolve(root,'src/favicon.ico'),resolve(dist,'favicon.ico'));
 await writeFile(resolve(dist, 'local/bootstrap.js'), `(() => {
   const user = {id:'100001', nickName:'本地演示', msgCount:50, avatar:new URL('/local/avatar.svg', location.origin).href, phone:'', vipLevel:0, isVip:0, money:0};
   localStorage.setItem('token', 'local-demo-not-a-production-credential');
@@ -74,7 +78,7 @@ await writeFile(resolve(dist, 'local/bootstrap.js'), `(() => {
     document.body.appendChild(badge);
   });
 })();\n`);
-await writeFile(resolve(dist, 'local/avatar.svg'), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="40" fill="#171717"/><text x="40" y="52" text-anchor="middle" fill="#d4af37" font-size="36" font-family="sans-serif">创</text></svg>');
+await writeFile(resolve(dist, 'local/avatar.svg'), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="40" fill="#171717"/><text x="40" y="52" text-anchor="middle" fill="#d4af37" font-size="36" font-family="sans-serif">无</text></svg>');
 await writeFile(resolve(dist, 'local/image-not-found.svg'), '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#1a1a1a"/><text x="200" y="205" text-anchor="middle" fill="#666666" font-family="Arial,sans-serif" font-size="16">Image Not Found</text></svg>');
 await writeFile(resolve(root, 'evidence/local-patches.json'), JSON.stringify({ builtAt: new Date().toISOString(), changes, note: 'captured/ remains byte-identical to public downloads. Synthetic account and public read snapshots; local model endpoints may be configured separately.' }, null, 2));
 console.log(`Prepared dist with ${changes.length} documented adaptation patches.`);
