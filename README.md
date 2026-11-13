@@ -31,6 +31,10 @@ npm run build
 
 启动前，按 [.env.example](.env.example) 在本机创建 `.env`，填写图片与对话服务配置。已有 `.env` 时保留原文件。详细步骤见 [模型配置.md](模型配置.md)。模板中的 `vision-script` 方式依赖工作区根目录的 `vision.js`；独立使用本项目时，应配置自己的模型接口。
 
+## MCP 服务（Codex / Workbuddy 等）
+
+`mcp/server.mjs` 提供零依赖的 stdio MCP 服务：MCP 客户端可从 GitHub 克隆本工程、自动安装构建并启动本地服务，然后通过工具调用文生图、图生图、文生3D、图生3D，或取得可供内嵌浏览器打开的工作台 URL。前端大文件资源通过 GitHub Release（`frontend-assets-v1`）分发，首次安装自动下载。接入配置与环境变量见 [mcp/README.md](mcp/README.md)。
+
 ## 技术组成
 
 | 部分 | 实现 |
@@ -162,6 +166,7 @@ REA 已执行 20 个工具和 7 个顶栏入口的切换检查，共 79 个场�
 | `server/tripo-service.mjs` | 未启用的专用 3D 服务适配器，仅通过模拟测试 |
 | `server/chat-service.mjs` | 模型对话、上下文与网页 SSE 适配 |
 | `.env.example` | 模型服务配置模板 |
+| `mcp/server.mjs` | 零依赖 MCP 服务：自举安装启动 + 文生图/图生图/文生3D/图生3D 工具 |
 | `server/public-data.json` | 工具目录、参数选项、价格和页面配置 |
 | `server/public-content.json` | 公开教程、作品和对话预设 |
 | `server/public-tasks.json` | 已取得的公开共享参数 |
