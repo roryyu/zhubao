@@ -1,0 +1,24 @@
+{
+  "name": "cjzbai-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-local.mjs",
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "verify": "node scripts/verify.mjs",
+    "test:models": "node scripts/test-models.mjs",
+    "test:relief": ".venv-geometry/bin/python scripts/test-relief.py",
+    "test:cad": "node scripts/test-cad.mjs",
+    "setup:geometry": "node scripts/setup-geometry.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "three": "0.186.0",
+    "three-bvh-csg": "0.0.18",
+    "zod": "4.4.3"
+  }
+}

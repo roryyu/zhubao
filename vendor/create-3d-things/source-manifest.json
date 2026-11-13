@@ -1,0 +1,32 @@
+[
+  {
+    "source": "server/utils/cad/schema.ts",
+    "target": "schema.ts",
+    "sourceSha256": "7c4fdc7aa205e819b7d3c7048e869e47929f7c9d7303632d3da4694ba9502478",
+    "localSha256": "a2e64edea36369b264e7bd8fb71c3a555184178783e2e8b66cc09115bcb50e18"
+  },
+  {
+    "source": "shared/types/cad.ts",
+    "target": "cad.ts",
+    "sourceSha256": "e63c67c0e893cc2247ec69100af64195e1d7ccc4087c2a82b3ab01d6f2456376",
+    "localSha256": "e63c67c0e893cc2247ec69100af64195e1d7ccc4087c2a82b3ab01d6f2456376"
+  },
+  {
+    "source": "server/utils/cad/prompts.ts",
+    "target": "prompts.ts",
+    "sourceSha256": "ccae118ac751009f05213c617d95256c0b842f6461c217b93fdc181a987be831",
+    "localSha256": "4e1e6e2339adb08eba93214646e60b2251a3730c3aa07bebe751c12b1c4ac596"
+  },
+  {
+    "source": "app/utils/cad-renderer.ts",
+    "target": "cad-renderer.ts",
+    "sourceSha256": "7f598a16452a811155efbea300a3fd5d1b2fc25f48208d0e620635124e7b3829",
+    "localSha256": "307443f5dafcaf1d68cc39bbf735a60bd98d37256170c2344d7fba52c380017b"
+  },
+  {
+    "source": "shared/utils/cad-export.ts",
+    "target": "cad-export.ts",
+    "sourceSha256": "1ea58505833fa000526cd799cfcd042478006c1837e4dcbbb7db05cb80b97845",
+    "localSha256": "1ea58505833fa000526cd799cfcd042478006c1837e4dcbbb7db05cb80b97845"
+  }
+]

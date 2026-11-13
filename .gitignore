@@ -1,0 +1,9 @@
+data/
+*.log
+.env*
+!.env.example
+.venv-geometry/
+node_modules/
+dist/
+evidence/
+captured/

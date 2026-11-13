@@ -1,0 +1,668 @@
+{
+  "tasks": {
+    "2118592825456238593": {
+      "id": "2118592590529077249",
+      "drawAppNumber": 2001,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/8f496507f6e0092e51e1fb9e.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"1:1\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/6471b80d203255d2a725dd8b.png"
+    },
+    "2118962993105625090": {
+      "id": "2118962354581561346",
+      "drawAppNumber": 2023,
+      "originalPromptJson": "{\"imageUrl\":\"@@ORIGIN@@/media/5bdb8047cc6bf3f4e16f15f2.png\",\"format\":\"DXF\",\"priceRevision\":\"1\",\"parametersRevision\":\"6bd37351228e4631f4d377a1c7e72125471a0f7385dc8ef19ac0e4522e90de32\",\"expectedPlatformCost\":30,\"modelLengthMm\":100,\"laserFill\":true,\"vectorProfile\":\"single_arc\",\"fillGapMm\":0.05}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/61ab875f6f361e3f1b3289f7.png"
+    },
+    "2116730688953806850": {
+      "id": "2116730033145016321",
+      "drawAppNumber": 2020,
+      "originalPromptJson": "{\"imageUrl\":\"@@ORIGIN@@/media/b40c80797e9eae6ce5ba7607.png\",\"mode\":\"中浮雕\",\"format\":\"TIF\",\"priceRevision\":\"1\",\"parametersRevision\":\"6bd37351228e4631f4d377a1c7e72125471a0f7385dc8ef19ac0e4522e90de32\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/0851b9c52fde2c144d9ab62a.png"
+    },
+    "2118764912108023809": {
+      "id": "2118764669169741825",
+      "drawAppNumber": 2021,
+      "originalPromptJson": "{\"additionalPrompt\":\"转成黄金材质\",\"imageSize\":\"2K\",\"aspectRatio\":\"auto\",\"responseFormat\":\"url\",\"outputSize\":\"2048x2048\",\"image\":[\"@@ORIGIN@@/media/254003939ff556c6ea17ac29.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/0c59bd8099a5c2703a0d2007.png"
+    },
+    "2098325054923464705": {
+      "id": "2098324922450567169",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/a5452e267bd5b51ba0ca9c7a.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/da59b8a10e0d4f3410a8be39.png"
+    },
+    "2114357585770680322": {
+      "id": "2114355751458934786",
+      "drawAppNumber": 2020,
+      "originalPromptJson": "{\"imageUrl\":\"@@ORIGIN@@/media/a9b00cac6adef6156879c8f5.png\",\"mode\":\"中浮雕\",\"format\":\"TIF\",\"priceRevision\":\"1\",\"parametersRevision\":\"6bd37351228e4631f4d377a1c7e72125471a0f7385dc8ef19ac0e4522e90de32\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/d301aa3b76432b9b5546288d.png"
+    },
+    "2097642539732574210": {
+      "id": "2097642338334679042",
+      "drawAppNumber": 2016,
+      "originalPromptJson": "{\"presetId\":\"poster-design\",\"additionalPrompt\":\"\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/a562bc044e63739b7dc992ca.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/f7ddae25411b71f623d98b5a.png"
+    },
+    "2111390535423082497": {
+      "id": "2111388819994689538",
+      "drawAppNumber": 2019,
+      "originalPromptJson": "{\"additionalPrompt\":\"【主体】一件高级珠宝：对称镂空的哑光黑色钛金属鹿角胸针，枝杈末端镶嵌方形边框钻石，枝干散布圆形钻石；底部为18K金几何切面鹿首镶嵌座，中央镶嵌一颗大型风筝形切割黄绿色橄榄石，外圈围镶钻石。参考图包含该胸针的正面、侧面、背面多角度，以及同一作品拆下后化作的金质戒指形态（镶嵌同款黄绿色橄榄石）。\\n\\n【场景与影调】全程纯黑丝绒空间，舞台追光，体积光中微尘浮动，高级珠宝发布会质感，电影级光影，横屏16:9。\\n\\n【镜头时间轴】\\n0-3秒：全黑画面中，一束细光扫过橄榄石台面，绿色火彩闪现一次即灭，只见其光不见全貌。\\n3-8秒：微距镜头沿哑光黑色鹿角枝干缓慢横移，冷调侧光扫过枝干，其上镶嵌的钻石被逐一点亮，如夜空中繁星渐次亮起。\\n8-13秒：特写环绕18K金鹿首转过四分之一弧，金色切面上锐利高光流动，镜头停在橄榄石正面，宝石内部黄绿色火彩如液体般缓缓流转。\\n13-18秒：镜头匀速拉远，胸针完整悬浮于黑色空间正中央，顶部追光打亮全身，光柱中微尘浮动，胸针缓慢自转，完整轮廓展开。\\n18-23秒：镜头环绕胸针做弧线环绕，镂空枝桠之间的负空间层次随视角开合，光影在枝干间穿行流动。\\n23-28秒：底部18K金鹿首金光一闪，从鹿角主体上脱离，向下翻转旋转变形，化作一枚金质戒指，变形瞬间一道金色光爆扫过画面。\\n28-30秒：戒指正面静止定格于画面中央，金光缓缓收敛，画面渐暗结束。\\n\\n【音效】低频氛围音铺底，克制高级，无鼓点无人声；钻石点亮时伴随极轻的金属高频声；变形瞬间一声精致沉闷的机械咔哒声。\\n\\n【禁忌】不出现人物、手、展台、道具、文字、logo、水印；不改变产品结构，不增减枝杈和钻石；橄榄石始终为黄绿色；钛金属始终为哑光黑色；镂空空隙始终通透不被填实。\",\"duration\":30,\"resolution\":\"720P\",\"aspectRatio\":\"16:9\",\"generateAudio\":true,\"watermark\":false,\"responseFormat\":\"url\",\"images\":[\"@@ORIGIN@@/media/9fd6a27d9cd48805681b6528.png\",\"@@ORIGIN@@/media/30d8408525c47b4195e5cfa7.png\",\"@@ORIGIN@@/media/daace975f9fc1b1561a8270c.png\",\"@@ORIGIN@@/media/5d006b94a08936f2f46844c0.png\",\"@@ORIGIN@@/media/01c0281e8cfaf0351ffc6d68.png\"],\"videoMode\":\"reference\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/41857443c3244872a63b8d57.mp4"
+    },
+    "2075927390491746305": {
+      "id": "2075927271952326657",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/8597aedeb468a2506edeeecc.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/7bfedcc1ffa38c4b0284df8d.jpg"
+    },
+    "2084616601302441986": {
+      "id": "2084616490010779650",
+      "drawAppNumber": 2004,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/3da7bed2d69bf53a75f76470.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"21:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/491aca0b59731c0e804a20c2.png"
+    },
+    "2084454462667333633": {
+      "id": "2084453947447418882",
+      "drawAppNumber": 2011,
+      "originalPromptJson": "{\"mode\":\"multiview\",\"faceCount\":2000000,\"generateType\":\"Geometry\",\"enablePBR\":false,\"geometryQuality\":\"detailed\",\"multiViewImages\":[{\"viewType\":\"front\",\"viewImageUrl\":\"@@ORIGIN@@/media/4ab4951b1854dcb159792f52.png\"},{\"viewType\":\"left\",\"viewImageUrl\":\"@@ORIGIN@@/media/39156b5b3b3425193fa5cbc4.png\"}]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/bf7880e3dd316f95e0d174f3.glb"
+    },
+    "2073428995621445633": {
+      "id": "2073428723482419201",
+      "drawAppNumber": 2016,
+      "originalPromptJson": "{\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/cbfbb19e8552aac28fa857e8.jpg\"],\"responseFormat\":\"url\",\"presetId\":\"\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/0cef6181336eeb6c31fd5fe4.png"
+    },
+    "2073244742338142210": {
+      "id": "2073244660805066753",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"根据这个款式，画3款不同风格的吊坠，不同镶嵌工艺的款式，白色背景，\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/5d5fb1714faf9ddc10437d6b.png\"],\"aspectRatio\":\"16:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/267d7ea15bb87c7a6fae4c45.jpg"
+    },
+    "2072347503692509186": {
+      "id": "2072347427482005505",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"帮我画一个曲面建模网格图，干净黑色背景，没有文字，正视图\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/09b82c5b200b82fd9c8d880e.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/6c1f47a38f02df911797c991.jpg"
+    },
+    "2069020676727144450": {
+      "id": "2069020606715822082",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"平面化2D设计图，不要本身图案以外任何文字，不要任何辅助线标记，白底黑线\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/09b82c5b200b82fd9c8d880e.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/2978a84ae192cc412fd4a40f.jpg"
+    },
+    "2069365492791103489": {
+      "id": "2069364825691246593",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"以图片里的三角梅花画一套首饰(戒指，吊坠，耳环，)主石颜色是图片里的主色调，搭配彩色宝石(宝石是图片里的配色调)，高级珠宝豪华款式，大牌风格，豪华精致，宝石搭配颜色以图片里的主色调为主，画一个套系，白色背景，没有文字，真实实物珠宝质感。8K分辨率\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/f8af4b4842c8ab806ac711db.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/b26a5211ac9e1eb1af126018.jpg"
+    },
+    "2068256571493859330": {
+      "id": "2068255094549397506",
+      "drawAppNumber": 2018,
+      "originalPromptJson": "{\"additionalPrompt\":\"使用上传参考图生成一段8秒的高端珠宝广告视频，画面比例为21:9。严格保持参考图中高级珠宝胸针的原始款式、结构、比例、颜色、材质、纹理、欧泊位置、金属边框、镶嵌细节和整体轮廓完全一致，胸针不能变形、不能改款、不能增加或减少任何部件。画面以海洋为主题，氛围奢华、梦幻、真实、电影感强，突出欧泊的虹彩光泽、金属质感与水面反射。\\n\\n分镜1，0.0s-2.0s：\\n广阔海面近景，深蓝海水在柔光下微微起伏，一颗欧泊从画面上方缓慢坠落，镜头轻微跟随下坠轨迹，水面出现细小涟漪并逐渐聚焦到落点，整体光影高级、清透、带有珠宝广告的冷暖交织氛围，重点营造神秘奢华的开场情绪。\\n\\n分镜2，2.0s-4.0s：\\n欧泊落入水中瞬间，水花四溅形成精致的慢动作水冠，镜头微距推进并轻微下压，水面中央开始显露出参考图中的高级珠宝胸针，胸针与参考图保持完全一致，金属边缘和宝石细节在水珠折射中逐渐清晰，重点展示胸针从海水中浮现的戏剧性和真实水感。\\n\\n分镜3，4.0s-6.5s：\\n胸针完全露出水面，镜头进行稳定的横向轻微环绕与微距推近，缓慢展现胸针的整体结构、层次和宝石镶嵌细节，水滴沿着胸针表面滑落，欧泊随光线呈现细腻的彩色变幻，背景海面虚化成高级蓝色渐层，重点突出材质反光、纹理、镶口工艺和宝石光泽。胸针从左往右旋转展示，\",\"model\":\"doubao-seedance-2-0-260128\",\"duration\":12,\"resolution\":\"720P\",\"aspectRatio\":\"1:1\",\"generateAudio\":true,\"watermark\":false,\"responseFormat\":\"url\",\"images\":[\"@@ORIGIN@@/media/02d976610ec74c3044489dca.png\",\"@@ORIGIN@@/media/c8cd8e64f5bb4a7494742cd9.png\"],\"videoMode\":\"first-last\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/7885409bd0a7743c34332095.mp4"
+    },
+    "2069275926658760705": {
+      "id": "2069274414826078210",
+      "drawAppNumber": 2014,
+      "originalPromptJson": "{\"additionalPrompt\":\"参考图为唯一依据，一枚圆形金色珠宝吊坠整体居中完整呈现，整体造型、结构、比例、材质、颜色、构图全部保持不变，镜头固定不动，无推拉摇移，无角度变化。整个吊坠作为一个统一的珠宝产品主体稳定存在，其中只有中间的鱼形主体、白钻区域和内圈光金作为一个整体，围绕画面中心点从正面视角做逆时针缓慢旋转，并由慢到快逐渐加速；方向明确稳定，表现为钟面方向顶部向左、左侧向下、底部向右、右侧向上。始终保持连续稳定的逆时针旋转，旋转方向从开头到结束完全一致，不出现任何顺时针转动、反向回摆或方向切换；以由慢到快的逆时针旋转为唯一运动方式，镜头稳定，运动轨迹连贯自然，外圈金属边框、梯方石、吊扣、背景和所有其他部分完全静止不动。保持珠宝材质真实，细节清晰，贵金属反光稳定，宝石火彩自然，高清微距，奢华商业产品视频质感，不变形，不拉伸，不分层错位，不闪烁，不残影，不新增元素，不改变颜色。\",\"model\":\"veo3\",\"duration\":10,\"resolution\":\"1080P\",\"watermark\":false,\"responseFormat\":\"url\",\"images\":[\"@@ORIGIN@@/media/c8e4ed54fcefe8821e3ff116.jpg\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/4be30c550e5691ef1c487407.mp4"
+    },
+    "2067903453874876418": {
+      "id": "2067903208394846210",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"additionalPrompt\":\"帮我i设计一款龙舟元素的胸针，简易风格，设计10款\",\"imageUrls\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/650e2c4950d01212d5dc3fbb.png"
+    },
+    "2066582624260050946": {
+      "id": "2066582472858259457",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/a1e8382e0ed6289342275543.png\"],\"imageSize\":\"4K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/9619e8e4863e3ba07d7b85cc.jpg"
+    },
+    "2066599372396941313": {
+      "id": "2066599268055240706",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/6828f2214144fc14c4a756e8.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/8417cec35347cf115e1236de.jpg"
+    },
+    "2066593897609678850": {
+      "id": "2066593747264851969",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/4cce6b08f32845aecc57ed39.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/119ec82022183c5037cdc5d3.jpg"
+    },
+    "2065340052564799490": {
+      "id": "2065339973154041858",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"将图像中标记的位置添加珐琅工艺，\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/84575e6c407fe248b8b573bb.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/b2eeec491f34c307897cde46.jpg"
+    },
+    "2066047627954438145": {
+      "id": "2066047502976761857",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"以这个鱼的简单造型，一个系列的文创产品：，一款冰箱贴，一个手提布袋，一个一次性杯子，一把雨伞，白色背景，产品完整展示，\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/d0048366f0176f6a15151b6d.png\"],\"aspectRatio\":\"21:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/687d6f627302c29d00d3f771.jpg"
+    },
+    "2066466125339938817": {
+      "id": "2066465029598990338",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"根据这个龙舟公仔，画3个不一样的动作，\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/281468ebab9af66348d5c90f.png\"],\"aspectRatio\":\"21:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/05e8dece9de0472fb234e2ae.jpg"
+    },
+    "2065041957025189889": {
+      "id": "2065041880575610881",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"以图1蓝色线的对称结构画一个戒指，宽版戒指，花纹镂空工艺，花纹围戒指一圈，搭配镶嵌白色钻石，没有主石，高级珠宝，精致的珠宝工艺，白色背景，画3个款式，戒指是立体图展示，没有文字，完整展示每个戒指\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/95a136831e0297785bb53b7e.png\"],\"aspectRatio\":\"21:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/9a17d4877aaa097406ef3371.jpg"
+    },
+    "2062424935875350529": {
+      "id": "2062424835144945666",
+      "drawAppNumber": 2003,
+      "originalPromptJson": "{\"additionalPrompt\":\"帮我设计一个吊坠\",\"image\":[\"https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/uploadDraw/20260604/9245c2c7ed074d3082841adb76fb902a.bmp\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/33dec1b75152301d5a61c01c.jpg"
+    },
+    "2055280244562235394": {
+      "id": "2055280148307152898",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"4张模特展示图，\\n图1：模特手拿吊坠展示，半身模特，保持款式不变，微距展示产品。\\n图2：吊坠佩戴在模特脖子上，保持款式不变，半模特站立姿势，\\n图3：吊坠佩戴在模特脖子上，保持款式不变，做着的姿势，手放在胸钱，聚焦产品\\n图4：手模双手捧着吊坠展示，\\n白色背景，高级电商图\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/39241c176f90c315cdbba72f.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/27f58a95f74f092a0aab8bba.jpg"
+    },
+    "2055287432114507778": {
+      "id": "2055287275251732481",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"4张模特展示图，\\n图1：模特手拿戒指展示，半身模特，保持款式不变，微距展示产品。\\n图2：戒指佩戴在模特手上，保持款式不变，半模特站立姿势，\\n图3：戒指佩戴在模特手上，保持款式不变，做着的姿势，手放在胸钱，聚焦产品\\n图4：手模手拿着戒指展示，\\n白色背景，高级电商图，模特自然\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/0bcbf9ac654b6b86cf72c0d5.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/7e7d006d329675d70dda8fbf.jpg"
+    },
+    "2053367866853650433": {
+      "id": "2053366998385258497",
+      "drawAppNumber": 2005,
+      "originalPromptJson": "{\"presetId\":\"1\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/2e2db6cc2ab9712728a37007.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/bdf6b90859afabb241ca8c7a.jpg"
+    },
+    "2053330423299403777": {
+      "id": "2053330186233147393",
+      "drawAppNumber": 2004,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/6eb2aee877c2c252f3aa04cd.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"21:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/aaf5f69d17b072b4e96d46da.jpg"
+    },
+    "2050788669698211842": {
+      "id": "2050787293127639041",
+      "drawAppNumber": 2016,
+      "originalPromptJson": "{\"presetId\":\"模特佩戴\",\"additionalPrompt\":\"将产品生成模特佩戴效果图，要求产品比例尺寸正确一比一，保证结构细节保留一致性。吊坠上下尺寸是30MM，戒指花头大小是15MM\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/9c398657c8983eca14dabb17.jpg\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e3c30a1372eedf43641176ce.png"
+    },
+    "2053331364736102401": {
+      "id": "2053331276789936129",
+      "drawAppNumber": 2004,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/619307e2bd66af02a14dc350.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"21:9\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/be00c8daf9bca377d4f2c142.jpg"
+    },
+    "2050837537601224705": {
+      "id": "2050837277680205826",
+      "drawAppNumber": 2016,
+      "originalPromptJson": "{\"presetId\":\"产品详情页\",\"additionalPrompt\":\"给这产品设计一张高级的，比例尺寸正确，信息丰富的信息详情页，绿色翡翠裸石尺寸5*6*3MM，耳拍尺寸上下整体17MM，镶嵌粉色宝石渐变到白色钻石，18K白金工艺，高级珠宝微镶工艺\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/909aee34eddf2cb4f8d9d5cf.jpg\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e697abb28c60747c77c709f2.png"
+    },
+    "2042443401860894721": {
+      "id": "2042443197879308290",
+      "drawAppNumber": 2005,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"黄金花丝吊坠\",\"image\":[\"@@ORIGIN@@/media/18707a0eed9603cb5ac3510b.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/909c42ea0b72d553ac9170e1.jpg"
+    },
+    "2040653004608364545": {
+      "id": "2040652826832789506",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/3df86c34940722fbf553278b.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/1909a73b8d96c714e7c49e41.jpg"
+    },
+    "2050777720471814145": {
+      "id": "2050777445438717953",
+      "drawAppNumber": 2016,
+      "originalPromptJson": "{\"presetId\":\"产品详情页\",\"additionalPrompt\":\"给这产品设计一张高级的，比例尺寸正确，信息丰富的信息详情页，吊坠上下尺寸是20MM\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/c45e9b3479d7972ef6b811bf.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/209cc238944dd561d348bd70.png"
+    },
+    "2050784987946549249": {
+      "id": "2050784336290119681",
+      "drawAppNumber": 2016,
+      "originalPromptJson": "{\"presetId\":\"模特佩戴\",\"additionalPrompt\":\"将产品生成模特佩戴效果图，要求产品比例尺寸正确一比一，保证结构细节保留一致性。吊坠上下尺寸是15MM，耳环上下尺寸是25MM，戒指上下尺寸是12MM\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/ca46304a4a550a66aae6ee06.jpg\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/a74915957844f01d7641d91a.png"
+    },
+    "2039212504416149506": {
+      "id": "2039212342918668289",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"以螺旋状荚果的形态，一片螺旋状螺旋翻转的效果，画一对素金耳环(耳钉)，黄色金属，简单款式，线条翻转流畅，左边模特佩戴图，右边产品展示图(保持模特佩戴的耳环和展示的耳环一致)，高级电商图效果。\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/b576935e59966e37169f69ab.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/754024cfadfd2854567709f4.jpg"
+    },
+    "2037065612836098050": {
+      "id": "2037065485262147586",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"根据这个戒指，画一个吊坠和耳钉，形成一个套装，高级珠宝，白色背景\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/2fecd723d89dcd4206660720.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/f22ae237498183d05867af3f.jpg"
+    },
+    "2038213875295473665": {
+      "id": "2038213762846183425",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"additionalPrompt\":\"画一个椭圆翡翠戒指，围石款式，钻石点缀，爪镶，多视图（上视图，正视图，侧视图，立体图）翡翠为主，配石为辅，高级珠宝手绘图，结构比例完美，白色背景\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/0203a3c96575debb3cf6b1a9.png\"],\"aspectRatio\":\"4:3\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e730477b9c866fa4f5f46cd9.jpg"
+    },
+    "2037075547607158786": {
+      "id": "2037075369563148290",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"以图片里的色彩画一套首饰(戒指，吊坠，耳环，)主石颜色是图片里的主色调，搭配彩色宝石(宝石是图片里的配色调)，高级珠宝豪华款式，大牌风格，豪华精致，宝石搭配颜色以图片里的主色调为主，画一个套系，白色背景，没有文字，真实实物珠宝质感。8K分辨率\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/ee07728120078e40e3cbd064.jpg\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/3df7216ce6f21f3122074eb4.jpg"
+    },
+    "2035947835350020098": {
+      "id": "2035947705058160642",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"prompt\":\"画一个镶嵌满钻石的熊猫戒指，画10款\",\"imageUrls\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e85773208fa033fc4716be2a.jpg"
+    },
+    "2036292134587559938": {
+      "id": "2036291987430404098",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"additionalPrompt\":\"帮我画一个龙虾胸针\",\"image\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/d387855a2a4093ceb892e0c0.jpg"
+    },
+    "2036795128319987713": {
+      "id": "2036795011575730178",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"prompt\":\"帮我画一个精美小龙虾胸针\",\"image\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e4e223c5d7779c78aab35d54.jpg"
+    },
+    "2037059656362381314": {
+      "id": "2037059442691952641",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"根据这个吊坠款式，画一个套装，戒指，耳环，吊坠，高级珠宝，高级背景\",\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"image\":[\"@@ORIGIN@@/media/f0f6546b0fcc2ebc039de2d2.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/965232e61bf8ef9f2d6bc64d.jpg"
+    },
+    "2027568036499828738": {
+      "id": "2027567962453585921",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"additionalPrompt\":\"生成一个高级个性男士吊坠。高级珠宝感，设计感强\",\"image\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/cc1eff1a7bbf84d67067c234.png"
+    },
+    "2025030907131478017": {
+      "id": "2025030760267923458",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/026827df8547e3fc82e6ed17.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/5ed357e4434c179bcde4bb82.jpg"
+    },
+    "2032466079351263234": {
+      "id": "2032465685095075842",
+      "drawAppNumber": 2014,
+      "originalPromptJson": "{\"prompt\":\"超高细节、逼真的奢华吊坠项链微距特写镜头。吊坠中心是一颗巨大的祖母绿切割艳粉色蓝宝石，周围环绕着一圈闪耀的明亮式切割白钻，连接着精致的金色项链。项链悬浮在半空中，平滑地进行360度旋转，全方位展示宝石的每一个角度和切面。 电影级影棚光效，焦点清晰，宝石内部有明亮的光线折射。纯净的白色背景，底部带有微妙柔和的倒影，8k分辨率，商业珠宝广告视频质感。\",\"model\":\"veo3\",\"duration\":15,\"resolution\":\"780P\",\"watermark\":false,\"responseFormat\":\"url\",\"images\":[\"@@ORIGIN@@/media/c159f2352930597f858ae75f.png\"]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/a1af2d6836036808e73ea796.mp4"
+    },
+    "2032371626355675137": {
+      "id": "2032370512159789058",
+      "drawAppNumber": 2011,
+      "originalPromptJson": "{\"mode\":\"multiview\",\"faceCount\":2000000,\"generateType\":\"Geometry\",\"enablePBR\":false,\"geometryQuality\":\"detailed\",\"multiViewImages\":[{\"viewType\":\"front\",\"viewImageUrl\":\"@@ORIGIN@@/media/fcf20e3a1c8f4bb96e20afe2.png\"},{\"viewType\":\"back\",\"viewImageUrl\":\"@@ORIGIN@@/media/375fb818a6984da93a659248.png\"},{\"viewType\":\"left\",\"viewImageUrl\":\"@@ORIGIN@@/media/1c77ec0fb2f31c7f8c0e2930.png\"}]}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/88545c6f321af179fbf2e560.glb"
+    },
+    "2013210761555542017": {
+      "id": "2013210639140585474",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"prompt\":\"画一个珍珠吊坠，10个款式，一个系列，马头，木马，旋转木马和马蹄元素，简单大气，搭配白色钻石，有金色珍珠，白色珍珠，黑色珍珠，，18K白，精致珠宝，白底电商图，8K分辨率\",\"imageUrls\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"3:2\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/9c1cd2016bb2722e94f5c77b.jpg"
+    },
+    "2014302370313449473": {
+      "id": "2014302272225456130",
+      "drawAppNumber": 2007,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/d4682906344592aae5531cb7.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/5854a4979881ec0d14f7c917.jpg"
+    },
+    "2025030764860686337": {
+      "id": "2025030663538884610",
+      "drawAppNumber": 2005,
+      "originalPromptJson": "{\"additionalPrompt\":\"黄金吊坠，光滑细腻的渲染表面，白色背景\",\"image\":[\"@@ORIGIN@@/media/026827df8547e3fc82e6ed17.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/347d4e9dec2d0764da95fed7.jpg"
+    },
+    "2013928299159588866": {
+      "id": "2013927991499001858",
+      "drawAppNumber": 2001,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/88da32ee642e982d9de84362.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"1:1\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/aa598e7ed3f3d0d00fe08aab.png"
+    },
+    "2013207795213729794": {
+      "id": "2013207683896901633",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"prompt\":\"一枚灵感源自“秘密花园”的高级珠宝系列——由盛放的玫瑰、缠绕的常春藤与隐匿的勿忘我组成，以18K玫瑰金与铂金精工打造。中心镶嵌一颗枕形切割的粉色蓝宝石或摩根石，周围环绕密镶钻石，祖母绿切割的沙弗莱石如叶尖露珠般闪烁。苔藓绿与暮光紫的微绘珐琅细节增添层次与神秘感，巴洛克珍珠点缀其间，仿佛晨雾缭绕。整体呈现超写实高级珠宝摄影风格，柔光布光，黑色丝绒背景，浅景深——优雅、浪漫、如梦似幻。有戒指，耳环，吊坠，胸针，形成一个系列\",\"imageUrls\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"3:2\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/64a2409f525d3bb74e3c1c29.jpg"
+    },
+    "2012172944771612674": {
+      "id": "2012172837732974594",
+      "drawAppNumber": 2004,
+      "originalPromptJson": "{\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/a218819af612f771be5440d9.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\",\"aspectRatio\":\"1:1\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/087a83b06ab3e16f02ecda1a.jpg"
+    },
+    "2013190935621599233": {
+      "id": "2013190829631537153",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"根据这个款式，画10个类似的耳环\",\"image\":[\"@@ORIGIN@@/media/266edfea38e6657e483b9f55.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"3:2\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/a342d68a51fe04cc7b07a4d1.jpg"
+    },
+    "2012804664663441409": {
+      "id": "2012804562708299777",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"左边模特佩戴图，右边产品展示图，亚洲模特，穿冬装\",\"image\":[\"@@ORIGIN@@/media/dcc233f3d23dbb9f90333bbc.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/9a3b1f6415209df6b3b5ac1a.jpg"
+    },
+    "2012111821758234625": {
+      "id": "2012111726417510402",
+      "drawAppNumber": 2003,
+      "originalPromptJson": "{\"additionalPrompt\":\"将图片中的熬鱼做成一件中国传统首饰，吊坠，设计工艺参考中国传统锁包的那种风格，简约光金面加入熬鱼的浮雕图案，可以点缀少量珐琅\",\"image\":[\"@@ORIGIN@@/media/c93b0d24b2b19e742bcac456.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"presetId\":\"0\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/22b9b44937d74e4b26b53d70.jpg"
+    },
+    "2011988359202873345": {
+      "id": "2011987501484482562",
+      "drawAppNumber": 2011,
+      "originalPromptJson": "{\"mode\":\"image\",\"faceCount\":1500000,\"generateType\":\"Normal\",\"enablePBR\":false,\"imageUrl\":\"@@ORIGIN@@/media/e28693abc20f4916ec9f9973.jpg\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/6043dd860b670fea73095d15.glb"
+    },
+    "2012164199291256833": {
+      "id": "2012164079975890946",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"画成珠宝胸针，粉色的刺，镶嵌白色钻石和彩色渐变宝石，珠宝质感，电商图渲染效果。白色背景\",\"image\":[\"@@ORIGIN@@/media/ca6ef05394d49fad6f982360.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/8b819f34f0a434f745226a64.jpg"
+    },
+    "2012158429489233921": {
+      "id": "2012158293757362177",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"画成珠宝胸针，粉色树懒，镶嵌彩色渐变宝石，珠宝质感，电商图渲染效果。白色背景\",\"image\":[\"@@ORIGIN@@/media/6aa79f78ff3a23b09198bc99.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/fc4ccb585d5b3a9da435fee0.jpg"
+    },
+    "2009596200457801730": {
+      "id": "2009596095004610562",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"prompt\":\"一个圆形碧玉蛋面的耳环，搭配绿色马眼小宝石和粉色马眼高级，碧玉蛋面13毫米，粉色马眼3×6毫米，绿色马眼2×4毫米，珠宝实物图，电商图\",\"imageUrls\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/b8742f4aa939546579cce88d.jpg"
+    },
+    "2009883519760928769": {
+      "id": "2009883421844901890",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"参考这个建筑造型元素，设计一款耳环和吊坠，，抽象艺术风格，18K白金材质\",\"image\":[\"@@ORIGIN@@/media/0217fe4daae7ce418736123b.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"3:4\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/ea0927355a93c4cd5d32cbf6.jpg"
+    },
+    "2007695556268408834": {
+      "id": "2007695414240886786",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"根据这个风格，画一只凤凰造型的胸针，，线条飘逸\",\"image\":[\"@@ORIGIN@@/media/39e0551580f0eac27e7ada26.png\",\"@@ORIGIN@@/media/c94c377b96c0be0340c973e7.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e70ed37eb35037c8f11807df.jpg"
+    },
+    "2007099440736911361": {
+      "id": "2007099313267818498",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"画成珠宝水彩风格，极致的细节，高清图，\",\"image\":[\"@@ORIGIN@@/media/7afb328ec4e5d1a4043fb472.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/b8f426bf33173556ca0cb97c.jpg"
+    },
+    "2007018971924152322": {
+      "id": "2007018857188966402",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"设计一款戒指，暗黑风，一颗红宝石在中间，两只乌鸦的头卡着宝石，形成180度对称结构，两只乌鸦头夹着宝石，形成夹镶，一些凌乱的带刺的荆棘绕在宝石旁边，荆棘上有几片叶子，电镀黑色，背景是曼陀罗花和藤蔓的的梦幻背景，左边模特佩戴在手上的展示效果，右边是戒指，戒指小巧精致\",\"image\":[\"@@ORIGIN@@/media/c9446031a5fcd74415767733.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"4:3\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/ec119d92e20b3b13c1500d4a.jpg"
+    },
+    "2007093383344046082": {
+      "id": "2007093204649918466",
+      "drawAppNumber": 2004,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"\",\"image\":[\"@@ORIGIN@@/media/bd9a391614e0d972e416c3fc.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/6d2860a2e82b59294738fe28.jpg"
+    },
+    "2007097690239942658": {
+      "id": "2007097541052743682",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"画成珠宝水彩风格，极致的细节，高级珠宝，高清图\",\"image\":[\"@@ORIGIN@@/media/9361b860c65480e1b30c657d.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/ec6d55f8f033ac31bf5aebe3.jpg"
+    },
+    "2006988089783894017": {
+      "id": "2006987958141468673",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"将草图设计成一个龙牌吊坠，有祥云元素，参考图2的龙麟\",\"image\":[\"@@ORIGIN@@/media/11e97fa3e2307e622c20e674.jpg\",\"@@ORIGIN@@/media/aad680f9e76210aab8311c58.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"3:4\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/39578121a7f7dc16211d3bb6.jpg"
+    },
+    "2006983043889381378": {
+      "id": "2006982880118587394",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"将图案提取转成ZBrush建模灰色材质，立体化极致的细节，增强立体饱满，强立体层次关系，哑光光滑软件雕刻材质表面，保留原图特征，黑色背景，完整全图\",\"image\":[\"@@ORIGIN@@/media/d2c137dab5768280c89e7d87.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/e21e8320f3991c40ac7d3f19.jpg"
+    },
+    "2006939979548344322": {
+      "id": "2006939865777848321",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"将戒指放到高级首饰盒中，展示\",\"image\":[\"@@ORIGIN@@/media/c04d51842d87f7cb9eeef6d0.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/470a3868d3706137dbb4fe30.jpg"
+    },
+    "2006957350270943233": {
+      "id": "2006957139012239362",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"以这款耳环为原型，加入一只小乌鸦踩在一颗菱形红色宝石上面，设计一款耳环，电镀黑色，背景是曼陀罗花和藤蔓的的梦幻背景，左边模特佩戴，右边是耳环\",\"image\":[\"@@ORIGIN@@/media/9dae72acbfc5544938719770.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"4:3\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/a952af42c7cb047c12b9851e.jpg"
+    },
+    "2006352868495474690": {
+      "id": "2006352755261849601",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"prompt\":\"2026元旦海报，画一个元旦海报，烟花绽放的瞬间，掉下来很多珠宝，有钻石戒指，红宝石戒指，祖母绿戒指，吊坠，很多彩色宝石，色彩丰富，画面美好，画面中国的地标建筑\",\"imageUrls\":[],\"imageSize\":\"2K\",\"responseFormat\":\"url\",\"aspectRatio\":\"3:4\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/97afc6a1ca00099033317f5a.jpg"
+    },
+    "2006023501491879937": {
+      "id": "2006023367135739905",
+      "drawAppNumber": 2006,
+      "originalPromptJson": "{\"prompt\":\"转成ZBrush建模灰色材质，立体化极致的细节，增强立体饱满，强立体层次关系，哑光光滑软件雕刻材质表面，保留原图特征，黑色背景，完整全图\",\"image\":[\"@@ORIGIN@@/media/3d12d135977a939d6b752728.jpg\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/f1a7bdc847f16a03a7a65d39.jpg"
+    },
+    "2006939479046242306": {
+      "id": "2006939293301489666",
+      "drawAppNumber": 2001,
+      "originalPromptJson": "{\"presetId\":\"0\",\"additionalPrompt\":\"保持细节结构不变\",\"image\":[\"@@ORIGIN@@/media/8a8ee53fea0bd228b57b94e3.png\"],\"imageSize\":\"2K\",\"responseFormat\":\"url\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/c04d51842d87f7cb9eeef6d0.png"
+    },
+    "2005564194627407874": {
+      "id": "2005564104017858561",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"params\":{\"responseFormat\":\"url\",\"imageSize\":\"2K\"}}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/1ef957328fd185601fe43314.jpg"
+    },
+    "2005841996673056769": {
+      "id": "2005841283985309698",
+      "drawAppNumber": 2011,
+      "originalPromptJson": "{\"type\":\"image_to_model\",\"image_url\":\"@@ORIGIN@@/media/b10d4da273126a9bb8d5f7ee.jpg\",\"model_version\":\"v3.0-20250812\",\"face_limit\":2000000,\"texture\":false,\"pbr\":false,\"output_format\":\"glb\",\"provider\":\"hunyuan\",\"hunyuanModelType\":\"pro\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/93f040677b8366ff02c84485.glb"
+    },
+    "2005950575258255362": {
+      "id": "2005949928278474753",
+      "drawAppNumber": 2011,
+      "originalPromptJson": "{\"type\":\"image_to_model\",\"image_url\":\"@@ORIGIN@@/media/6badb8f6bd3efa0f678309eb.jpg\",\"model_version\":\"v3.0-20250812\",\"face_limit\":2000000,\"texture\":false,\"pbr\":false,\"output_format\":\"glb\",\"provider\":\"hunyuan\",\"hunyuanModelType\":\"pro\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/90afca42af9dfdaa84627b77.glb"
+    },
+    "2005565084256063489": {
+      "id": "2005564971253125122",
+      "drawAppNumber": 2004,
+      "originalPromptJson": "{\"params\":{\"image\":[\"@@ORIGIN@@/media/6badb8f6bd3efa0f678309eb.jpg\"],\"additionalPrompt\":\"1\",\"responseFormat\":\"url\",\"imageSize\":\"2K\",\"presetId\":\"0\"}}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/64b6788fc2ce0852e7b7210e.jpg"
+    },
+    "2005255718281912321": {
+      "id": "2005255622005858305",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"params\":{\"responseFormat\":\"url\",\"imageSize\":\"2K\"},\"prompt\":\"画一个iphone13pro的手机壳，手机壳上有猪，可爱的猪妞在吃火鸡面\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/7ffbe97c3694a9cc5bfe0b3b.jpg"
+    },
+    "2005254414146969601": {
+      "id": "2005254325634572289",
+      "drawAppNumber": 2000,
+      "originalPromptJson": "{\"params\":{\"responseFormat\":\"url\",\"imageSize\":\"2K\"},\"prompt\":\"设计一个马年的礼物袋子，高级\"}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/2c402f8366ab1a7e4e7794cb.jpg"
+    },
+    "2005563648633884674": {
+      "id": "2005563531860267010",
+      "drawAppNumber": 2005,
+      "originalPromptJson": "{\"params\":{\"image\":[\"@@ORIGIN@@/media/6badb8f6bd3efa0f678309eb.jpg\"],\"additionalPrompt\":\"1\",\"responseFormat\":\"url\",\"imageSize\":\"2K\",\"presetId\":\"1\"}}",
+      "status": 8,
+      "output": null,
+      "publicPreview": "@@ORIGIN@@/media/2eed95bfda353515e75dc449.jpg"
+    }
+  }
+}
