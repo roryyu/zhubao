@@ -33,7 +33,64 @@ npm run build
 
 ## MCP 服务（Codex / Workbuddy 等）
 
-`mcp/server.mjs` 提供零依赖的 stdio MCP 服务：MCP 客户端可从 GitHub 克隆本工程、自动安装构建并启动本地服务，然后通过工具调用文生图、图生图、文生3D、图生3D，或取得可供内嵌浏览器打开的工作台 URL。前端大文件资源通过 GitHub Release（`frontend-assets-v1`）分发，首次安装自动下载。接入配置与环境变量见 [mcp/README.md](mcp/README.md)。
+`mcp/server.mjs` 提供零依赖的 stdio MCP 服务：MCP 客户端可从 GitHub 克隆本工程、自动安装构建并启动本地服务，然后通过工具调用文生图、图生图、文生3D、图生3D，或取得可供内嵌浏览器打开的工作台 URL。前端大文件资源通过 GitHub Release（`frontend-assets-v1`）分发，首次安装自动下载。
+
+### 让 Codex / Workbuddy 安装并使用
+
+1. 克隆仓库到任意目录（这一步只是拿到 MCP 入口脚本，运行实例由 MCP 自动安装）：
+
+   ```bash
+   git clone https://github.com/roryyu/zhubao.git
+   ```
+
+2. 在 MCP 客户端注册服务，命令指向克隆目录里的 `mcp/server.mjs`，用 `env` 注入你自己的模型接口（键名与 [.env.example](.env.example) 一致，详见 [模型配置.md](模型配置.md)）：
+
+   **Codex**（`~/.codex/config.toml`）：
+
+   ```toml
+   [mcp_servers.cjzbai]
+   command = "node"   # 建议写 node 绝对路径，需 Node.js ≥ 24
+   args = ["/absolute/path/zhubao/mcp/server.mjs"]
+   startup_timeout_sec = 30
+   tool_timeout_sec = 1800   # 首次安装要下载约 1.3 GB 前端资源
+
+   [mcp_servers.cjzbai.env]
+   IMAGE_BASE_URL = "https://your-image-endpoint/v1"
+   IMAGE_API_KEY = "sk-..."
+   IMAGE_MODEL = "your-image-model"
+   IMAGE_API_STYLE = "auto"   # auto / images / chat / dashscope
+   CHAT_BASE_URL = "https://your-chat-endpoint/v1"
+   CHAT_API_KEY = "sk-..."
+   CHAT_MODEL = "your-vision-chat-model"   # 3D 建模需视觉对话模型
+   CHAT_VISION = "true"
+   ```
+
+   **Workbuddy / 其他 MCP 客户端**（JSON 配置）：
+
+   ```json
+   {
+     "mcpServers": {
+       "cjzbai": {
+         "command": "node",
+         "args": ["/absolute/path/zhubao/mcp/server.mjs"],
+         "env": {
+           "IMAGE_BASE_URL": "https://your-image-endpoint/v1",
+           "IMAGE_API_KEY": "sk-...",
+           "IMAGE_MODEL": "your-image-model",
+           "CHAT_BASE_URL": "https://your-chat-endpoint/v1",
+           "CHAT_API_KEY": "sk-...",
+           "CHAT_MODEL": "your-vision-chat-model",
+           "CHAT_VISION": "true"
+         }
+       }
+     }
+   }
+   ```
+
+3. 在对话里让 Agent 调用 `setup`（或直接提生成需求）：首次会自动把运行实例安装到 `~/.cjzbai-mcp/zhubao`（克隆、下载前端资源、安装构建、写 `.env`、启动服务，需数分钟），之后秒级就绪。已有本地 checkout 时，可设 `CJZBAI_PROJECT_DIR` 指向它，复用现有 `.env` 与历史数据。
+4. 可选：把 [mcp/SKILL.md](mcp/SKILL.md) 安装为 Agent Skill（如 Codex 的 `~/.codex/skills/cjzbai/SKILL.md`），让 Agent 掌握异步任务轮询、参考图上传与结果交付的调用规范。
+
+环境变量、工具参数与排障见 [mcp/README.md](mcp/README.md)。
 
 ## 技术组成
 
@@ -167,6 +224,7 @@ REA 已执行 20 个工具和 7 个顶栏入口的切换检查，共 79 个场�
 | `server/chat-service.mjs` | 模型对话、上下文与网页 SSE 适配 |
 | `.env.example` | 模型服务配置模板 |
 | `mcp/server.mjs` | 零依赖 MCP 服务：自举安装启动 + 文生图/图生图/文生3D/图生3D 工具 |
+| `mcp/SKILL.md` | Agent Skill：教 Codex/Workbuddy 等如何调用本 MCP |
 | `server/public-data.json` | 工具目录、参数选项、价格和页面配置 |
 | `server/public-content.json` | 公开教程、作品和对话预设 |
 | `server/public-tasks.json` | 已取得的公开共享参数 |

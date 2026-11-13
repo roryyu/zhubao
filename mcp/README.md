@@ -61,6 +61,10 @@ CHAT_VISION = "true"
 
 模型接口的协议选择、千问 DashScope 原生协议等细节见工程根目录 [模型配置.md](../模型配置.md)。密钥只写入运行实例的本机 `.env`，不会进入网页或日志。
 
+### Agent Skill（可选）
+
+[SKILL.md](SKILL.md) 是配套的 Agent Skill，描述异步任务轮询、参考图上传、结果交付与能力边界的调用规范。复制到客户端的技能目录即可，例如 Codex：`~/.codex/skills/cjzbai/SKILL.md`。
+
 ## 环境变量
 
 | 变量 | 默认值 | 说明 |
