@@ -3,8 +3,13 @@
 `mcp/server.mjs` 是零依赖的 stdio MCP 服务，让 Codex、Workbuddy 等 MCP 客户端能够：
 
 1. **自动安装**：从 GitHub 克隆本工程 → 下载前端资源包（Release，约 1.3 GB）→ `npm ci` → `npm run build` → 写入模型配置 → 启动本地服务；
-2. **调用生成能力**：文生图、图生图、文生3D、图生3D（真实模型调用，异步任务）；
+2. **调用生成能力**：文生图、图生图、文生3D、图生3D；
 3. **打开页面**：返回可供内嵌浏览器打开的工作台 URL。
+
+生成有两种模式：
+
+- **客户端模型模式（首选，不依赖 .env）**：`prepare_image` / `prepare_3d` 返回提示词 → 客户端用自己的大模型生成（图片 / 建模 JSON）→ `submit_image` / `submit_3d` 回传 → 服务端本地构建几何、导出、保存并登记历史；3D 会返回自评修正提示词形成多轮循环，直到返回最终结果与展示页面。
+- **服务端模型模式（备选）**：`text_to_image` 等工具调用 `.env` 配置的模型，异步任务 + `get_task` 轮询。
 
 要求：Node.js ≥ 24、`git`、`tar`（macOS / Linux / Win10+ 自带）。浮雕功能另需 `python3`（可选）。
 
@@ -84,17 +89,22 @@ CHAT_VISION = "true"
 | --- | --- | --- |
 | `setup` | `relief?` | 幂等安装并启动；`relief=true` 额外准备浮雕环境 |
 | `status` | — | 安装/运行状态与当前模型配置（不触发安装） |
-| `text_to_image` | `prompt`, `aspect_ratio?`, `size?(1K/2K)`, `wait_seconds?` | 文生图 |
-| `image_to_image` | `prompt`, `images[1-4]`, `aspect_ratio?`, `size?`, `wait_seconds?` | 图生图；图片支持本地路径、URL |
-| `text_to_3d` | `prompt`, `wait_seconds?` | 文生3D，导出 GLB/STL/DXF/JSON |
-| `image_to_3d` | `image`, `prompt?`, `wait_seconds?` | 图生3D，导出 GLB/STL/DXF/JSON |
-| `get_task` | `task_id`, `wait_seconds?` | 查询任务；成功时返回结果 URL 与本地文件路径 |
+| `prepare_3d` | `prompt?`, `image?`, `mode?`, `refine_rounds?` | 客户端模型模式：返回建模/分析提示词 |
+| `submit_3d` | `task_id`, `output` | 回传客户端模型 JSON；返回下一轮提示词或最终 GLB/STL/DXF/JSON |
+| `prepare_image` | `prompt`, `images?`, `aspect_ratio?`, `size?` | 客户端模型模式：返回出图提示词 |
+| `submit_image` | `task_id`, `image` | 回传客户端生成的图片，保存并返回展示 URL |
+| `text_to_image` | `prompt`, `aspect_ratio?`, `size?(1K/2K)`, `wait_seconds?` | 服务端模型模式：文生图 |
+| `image_to_image` | `prompt`, `images[1-4]`, `aspect_ratio?`, `size?`, `wait_seconds?` | 服务端模型模式：图生图 |
+| `text_to_3d` | `prompt`, `wait_seconds?` | 服务端模型模式：文生3D |
+| `image_to_3d` | `image`, `prompt?`, `wait_seconds?` | 服务端模型模式：图生3D |
+| `get_task` | `task_id`, `wait_seconds?` | 查询任务（两种模式通用）；成功时返回结果 URL 与本地文件路径 |
 | `list_tasks` | `limit?` | 最近任务历史（含网页端任务） |
 | `open_workspace` | `open_browser?` | 返回内嵌浏览器可打开的工作台 URL；`open_browser=true` 同时弹系统浏览器 |
 
-### 异步任务约定
+### 异步任务约定（服务端模型模式）
 
 - 生成工具默认立即返回 `task_id`，用 `get_task` 轮询；`wait_seconds`（0–110）可同步等待。图片约 1 分钟，3D 多阶段管线可能需要数分钟。
+- 客户端模型模式的 `prepare_*`/`submit_*` 是同步往返：每次 `submit_3d` 立即返回下一阶段提示词或最终结果；Agent 会话 30 分钟无回传自动作废。
 - 本地服务同一时间只允许一个生成任务；忙时提交会返回进行中任务的 `task_id`。
 - 结果文件在运行实例 `data/generated/`；任务历史在 `data/tasks.json`，重启不丢。
 - 3D 输出为参数化实体概念模型（车削/拉伸/扫掠/布尔运算 + 渲染自评），非加工级 CAD，能力边界见主 README。

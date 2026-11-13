@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "path": "media/95ba958ecb704af886a351c3.png",
+      "source": "https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/20251216/2fedc6bbbf40417e8c64be079fbdd96e.png",
+      "sha256": "95ba958ecb704af886a351c3d85225f31cd9ac633977195fe4b0363475f77e50",
+      "bytes": 311484
+    },
+    {
+      "path": "media/5dca8ee96e40b4bab3de628e.png",
+      "source": "https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/20260331/9c53fe4195d14df3ab7e8eb1ad7c8a58.png",
+      "sha256": "5dca8ee96e40b4bab3de628eb184d16908fb25010b1e22e4e2b86bdb4c84c632",
+      "bytes": 148886
+    },
+    {
+      "path": "local/fallback-jewelry.jpg",
+      "source": "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500",
+      "bytes": 32121,
+      "sha256": "23cab53acb75084fb024e6c18beff295ee64fcec63277ba0e3ce02d091dc0bf2"
+    },
+    {
+      "path": "media/95ba958ecb704af886a351c3.png",
+      "source": "https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/20251216/2fedc6bbbf40417e8c64be079fbdd96e.png",
+      "sha256": "95ba958ecb704af886a351c3d85225f31cd9ac633977195fe4b0363475f77e50",
+      "bytes": 311484
+    },
+    {
+      "path": "local/a3303087a07c8117e8e97455.jpg",
+      "source": "https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/20260123/6259cc49599c483fa49a7ae5a363d20a.jpg",
+      "bytes": 872972,
+      "sha256": "a3303087a07c8117e8e97455aeafef39ea7cf17064dba611217748453deb295e"
+    },
+    {
+      "path": "local/9327d1d93334145ff1d77ebe.jpg",
+      "source": "https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/20260123/b010b5723d134deb9e11c8519af0ceb6.jpg",
+      "bytes": 876455,
+      "sha256": "9327d1d93334145ff1d77ebe53745b8a28148f8dc4a75e2b29e04abc8cbe3ac7"
+    },
+    {
+      "path": "local/84009d057389fe7d7f51579a.jpg",
+      "source": "https://cjzbai-1389715364.cos.ap-chengdu.myqcloud.com/chatgpt/20260123/fdca4617cdce4d00bb59eef21c70aa65.jpg",
+      "bytes": 852237,
+      "sha256": "84009d057389fe7d7f51579a95ed0141d8c5424ba4603f28bdef5b16c9e79108"
+    }
+  ]
+}

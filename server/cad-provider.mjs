@@ -132,7 +132,7 @@ export async function exportCadModel({ raw, outputDir, taskId, providerModel = '
 }
 
 /** 宽松解析模型返回的 JSON 对象；失败返回 null，由调用方决定降级。 */
-function tolerantJsonObject(raw) {
+export function tolerantJsonObject(raw) {
   if (typeof raw !== 'string') return null;
   const trimmed = raw.trim();
   for (const candidate of [trimmed, /^```(?:json)?\s*([\s\S]*?)\s*```$/i.exec(trimmed)?.[1]]) {
@@ -142,7 +142,7 @@ function tolerantJsonObject(raw) {
   return null;
 }
 
-async function renderPreviews(stlPath, outputDir, taskId, round) {
+export async function renderPreviews(stlPath, outputDir, taskId, round) {
   const python = resolve(projectRoot, '.venv-geometry/bin/python');
   const worker = resolve(projectRoot, 'server/cad/preview.py');
   const request = { stlPath, outDir: outputDir, basename: `${taskId}-r${round}`, size: 512 };

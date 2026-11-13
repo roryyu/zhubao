@@ -5,5 +5,9 @@ data/
 .venv-geometry/
 node_modules/
 dist/
-evidence/
 captured/
+# evidence 默认忽略，但 ui-config-assets.json 是构建必需输入，纳入版本管理
+evidence/*
+!evidence/ui-config-assets.json
+__pycache__/
+*.pyc

@@ -272,18 +272,19 @@ async function resolveImage(input) {
   return uploadBytes(bytes, type, name);
 }
 
+async function busyError() {
+  try {
+    const page = await api('GET', '/api/draw/comfyuiTask/page?page=1&limit=10');
+    const busy = (page.data?.list || []).find(t => ![2, 4, 6, 7, 8].includes(t.status));
+    if (busy) return new Error(`本地服务同一时间只允许一个生成任务（进行中任务 task_id=${busy.id}，可用 get_task 等待完成）`);
+  } catch {}
+  return new Error('本地服务同一时间只允许一个生成任务，请等待当前任务完成后再提交');
+}
+
 async function submitTask(appNumber, params) {
   await ensureReady();
   const res = await api('POST', '/api/unified/submit-task', { appNumber, params });
-  if (res.code === 40901) {
-    let running = '';
-    try {
-      const page = await api('GET', '/api/draw/comfyuiTask/page?page=1&limit=10');
-      const busy = (page.data?.list || []).find(t => ![2, 4, 6, 7, 8].includes(t.status));
-      if (busy) running = `（进行中任务 task_id=${busy.id}，可用 get_task 等待完成）`;
-    } catch {}
-    throw new Error('本地服务同一时间只允许一个生成任务，请等待当前任务完成后再提交' + running);
-  }
+  if (res.code === 40901) throw await busyError();
   if (res.code !== 0) throw new Error(res.msg || '任务提交失败');
   return res.data.task_id;
 }
@@ -407,8 +408,59 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: {} },
   },
   {
+    name: 'prepare_image',
+    description: '文生图/图生图（客户端模型模式，推荐）：返回合成好的出图提示词与参考图 URL，由客户端（Codex/Workbuddy）自己的图像模型生成图片，再用 submit_image 回传保存。不依赖服务端 .env 模型。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        prompt: { type: 'string', description: '设计需求描述，写清材质、宝石、镶嵌结构与风格' },
+        images: { type: 'array', items: { type: 'string' }, maxItems: 4, description: '可选参考图（本地路径或 URL），图生图/精修/融合时传入' },
+        aspect_ratio: { type: 'string', description: '画幅比例，如 1:1、3:4' },
+        size: { type: 'string', enum: ['1K', '2K'], description: '清晰度档位，默认 2K' },
+      },
+      required: ['prompt'],
+    },
+  },
+  {
+    name: 'submit_image',
+    description: '回传客户端模型生成的图片（本地文件路径、URL 或 data URL），服务端校验保存并登记任务历史，返回展示 URL 与页面地址。须先调 prepare_image。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task_id: { type: 'string', description: 'prepare_image 返回的 task_id' },
+        image: { type: 'string', description: '生成的图片：本地文件绝对路径、http(s) URL 或 data:image/...;base64 字符串' },
+      },
+      required: ['task_id', 'image'],
+    },
+  },
+  {
+    name: 'prepare_3d',
+    description: '文生3D/图生3D（客户端模型模式，推荐）：返回建模提示词（system_prompt/user_prompt）与参考图，由客户端自己的大模型输出建模 JSON，再用 submit_3d 回传；服务端本地构建几何并可能返回自评修正提示词，循环直到完成。不依赖服务端 .env 模型。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        prompt: { type: 'string', description: '建模需求，务必包含必要尺寸（如戒圈直径 17mm、主石 8mm）；text 模式必填' },
+        image: { type: 'string', description: '参考图（本地路径或 URL）；传入时默认 image 模式，先返回结构分析提示词' },
+        mode: { type: 'string', enum: ['text', 'image'], description: '默认按是否传 image 自动选择' },
+        refine_rounds: { type: 'number', minimum: 0, maximum: 2, description: '渲染自评修正轮数，默认 1；0 跳过自评（无 Python 环境时自动跳过）' },
+      },
+    },
+  },
+  {
+    name: 'submit_3d',
+    description: '回传客户端大模型的输出（结构分析 JSON / CadModel JSON / 评审结论 JSON，取决于当前 stage）。服务端校验构建：可能返回下一阶段提示词（继续让客户端模型生成），或返回最终 GLB/STL/DXF/JSON 与展示页面。',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task_id: { type: 'string', description: 'prepare_3d 返回的 task_id' },
+        output: { description: '客户端模型返回的 JSON（对象或字符串均可，按当前 stage 的契约：分析 parts / CadModel / verdict）' },
+      },
+      required: ['task_id', 'output'],
+    },
+  },
+  {
     name: 'text_to_image',
-    description: '文生图：按文字描述生成珠宝设计效果图（真实模型出图，PNG/JPEG）。异步任务，返回 task_id 后用 get_task 取结果。',
+    description: '文生图（服务端模型模式，备选）：调用服务端 .env 配置的图像模型出图。客户端自身有图像生成能力时优先用 prepare_image + submit_image。异步任务。',
     inputSchema: {
       type: 'object',
       properties: {
@@ -422,7 +474,7 @@ const TOOLS = [
   },
   {
     name: 'image_to_image',
-    description: '图生图：上传 1-4 张参考图（本地文件路径或 URL），按描述修改/融合/精修珠宝设计。异步任务。',
+    description: '图生图（服务端模型模式，备选）：上传 1-4 张参考图，由服务端 .env 配置的图像模型修改/融合/精修。异步任务。',
     inputSchema: {
       type: 'object',
       properties: {
@@ -437,7 +489,7 @@ const TOOLS = [
   },
   {
     name: 'text_to_3d',
-    description: '文生3D：按文字描述生成参数化实体珠宝概念模型，导出 GLB/STL/DXF/建模 JSON。多阶段管线（分析-建模-渲染自评），可能需要数分钟。造型为概念近似，非加工级 CAD。',
+    description: '文生3D（服务端模型模式，备选）：由服务端 .env 配置的视觉对话模型生成参数化实体模型。客户端自己有强模型时优先用 prepare_3d + submit_3d。可能需要数分钟。',
     inputSchema: {
       type: 'object',
       properties: {
@@ -449,7 +501,7 @@ const TOOLS = [
   },
   {
     name: 'image_to_3d',
-    description: '图生3D：上传一张珠宝参考图（本地路径或 URL），先做结构化视觉分析再生成参数化实体模型，导出 GLB/STL/DXF/JSON。可能需要数分钟。',
+    description: '图生3D（服务端模型模式，备选）：由服务端 .env 配置的视觉对话模型分析参考图并建模。客户端自己有强模型时优先用 prepare_3d + submit_3d。可能需要数分钟。',
     inputSchema: {
       type: 'object',
       properties: {
@@ -492,6 +544,27 @@ const TOOLS = [
   },
 ];
 
+// 本地文件/远程 URL 读成 data URL，供 agent 图片回传。
+async function imageToDataUrl(input) {
+  if (typeof input !== 'string' || !input.trim()) throw new Error('缺少图片');
+  if (input.startsWith('data:') || input.startsWith(baseUrl)) return input;
+  let bytes, type;
+  if (/^https?:\/\//.test(input)) {
+    const res = await fetch(input, { signal: AbortSignal.timeout(60000) });
+    if (!res.ok) throw new Error(`图片下载失败（HTTP ${res.status}）：${input}`);
+    bytes = Buffer.from(await res.arrayBuffer());
+    type = (res.headers.get('content-type') || 'image/png').split(';')[0];
+  } else {
+    const path = resolve(input);
+    if (!existsSync(path)) throw new Error(`图片文件不存在：${path}`);
+    bytes = await readFile(path);
+    type = MIME[extname(path).toLowerCase()];
+    if (!type) throw new Error('图片仅支持 PNG / JPEG / WEBP / SVG');
+  }
+  if (bytes.length > 29 * 1024 * 1024) throw new Error('图片不能超过 29 MiB');
+  return `data:${type};base64,${bytes.toString('base64')}`;
+}
+
 async function callTool(name, args) {
   switch (name) {
     case 'setup': {
@@ -500,6 +573,42 @@ async function callTool(name, args) {
     }
     case 'status':
       return status();
+    case 'prepare_image': {
+      if (!String(args.prompt || '').trim()) throw new Error('缺少 prompt');
+      await ensureReady();
+      const images = [];
+      for (const image of (args.images || []).slice(0, 4)) images.push(await resolveImage(image));
+      const res = await api('POST', '/api/agent/image/prepare', { prompt: args.prompt, images, aspectRatio: args.aspect_ratio, imageSize: args.size });
+      if (res.code === 40901) throw await busyError();
+      if (res.code !== 0) throw new Error(res.msg || '图片任务准备失败');
+      return res.data;
+    }
+    case 'submit_image': {
+      if (!args.task_id) throw new Error('缺少 task_id');
+      await ensureReady();
+      const image = await imageToDataUrl(args.image);
+      const res = await api('POST', '/api/agent/image/submit', { task_id: args.task_id, image });
+      if (res.code !== 0) throw new Error(res.msg || '图片回传失败');
+      return res.data;
+    }
+    case 'prepare_3d': {
+      await ensureReady();
+      const body = { mode: args.mode || (args.image ? 'image' : 'text'), prompt: args.prompt };
+      if (args.image) body.imageUrl = await resolveImage(args.image);
+      if (args.refine_rounds !== undefined) body.refineRounds = args.refine_rounds;
+      const res = await api('POST', '/api/agent/3d/prepare', body);
+      if (res.code === 40901) throw await busyError();
+      if (res.code !== 0) throw new Error(res.msg || '3D 任务准备失败');
+      return res.data;
+    }
+    case 'submit_3d': {
+      if (!args.task_id) throw new Error('缺少 task_id');
+      if (args.output === undefined || args.output === null) throw new Error('缺少 output（客户端模型返回的 JSON）');
+      await ensureReady();
+      const res = await api('POST', '/api/agent/3d/submit', { task_id: args.task_id, output: args.output });
+      if (res.code !== 0) throw new Error(res.msg || '建模结果回传失败');
+      return res.data;
+    }
     case 'text_to_image': {
       if (!String(args.prompt || '').trim()) throw new Error('缺少 prompt');
       return submitAndMaybeWait(2006, imageParams(args), args.wait_seconds);
@@ -564,11 +673,11 @@ function replyError(id, code, message) {
 }
 
 const INSTRUCTIONS = [
-  '无觉珠宝 AI 本地版 MCP：提供文生图、图生图、文生3D、图生3D 与本地工作台页面。',
-  '首次调用 setup 或任意生成工具会自动从 GitHub 克隆工程、下载前端资源并安装启动（需数分钟）。',
-  '生成工具为异步任务：返回 task_id 后用 get_task 轮询（可带 wait_seconds 同步等待）；同一时间只允许一个生成任务。',
-  '结果返回 URL 与本地文件路径；open_workspace 返回的 URL 可用内嵌浏览器打开。',
-  '模型服务通过 MCP 配置的 IMAGE_* / CHAT_* / MODEL3D_* 环境变量注入，密钥只保存在本机 .env。',
+  '无觉珠宝 AI 本地版 MCP：文生图、图生图、文生3D、图生3D 与本地工作台页面。',
+  '首选客户端模型模式（不依赖服务端 .env）：prepare_image/prepare_3d 返回提示词 → 你用自己的大模型生成（图片/建模 JSON）→ submit_image/submit_3d 回传 → 服务端处理；3D 可能返回下一轮自评提示词，循环直到 status=succeeded，最后用返回的 URL 展示图片/3D 页面。',
+  '备选服务端模型模式：text_to_image/image_to_image/text_to_3d/image_to_3d 调用 .env 配置的模型，异步返回 task_id，用 get_task 轮询。',
+  '首次调用会自动从 GitHub 克隆工程、下载前端资源并安装启动（需数分钟）；同一时间只允许一个生成任务。',
+  'open_workspace 返回的 URL 可用内嵌浏览器打开；结果文件在运行实例 data/generated/。',
 ].join('\n');
 
 async function handleMessage(message) {
