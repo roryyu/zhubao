@@ -27,11 +27,13 @@ npm run build
 
 浮雕环境需要 Python 3.12+。`setup:geometry` 会创建 Python 环境、安装依赖，并下载约 100 MB 的深度模型。模型和运行数据保存在 `data/`，迁移时需要保留或重新准备。
 
-启动前，按 [.env.example](.env.example) 在本机创建 `.env`，填写图片与对话服务配置。已有 `.env` 时保留原文件。详细步骤见 [模型配置.md](模型配置.md)。模板中的 `vision-script` 方式依赖工作区根目录的 `vision.js`；独立使用本项目时，应配置自己的模型接口。
+启动前，按 [.env.example](.env.example) 在本机创建 `.env`，填写图片与对话服务配置。已有 `.env` 时保留原文件。详细步骤见 [模型配置.md](模型配置.md)。模板中的 `vision-script` 方式依赖工作区根目录的 `vision.js`；独立使用本项目时，应配置自己的模型接口。这份 `.env` 只供**网页工作台**使用；MCP 链路不需要任何模型配置。
 
 ## MCP 服务（Codex / Workbuddy 等）
 
-`mcp/server.mjs` 提供零依赖的 stdio MCP 服务：MCP 客户端可从 GitHub 克隆本工程、自动安装构建并启动本地服务，然后调用文生图、图生图、文生3D、图生3D，或取得可供内嵌浏览器打开的工作台 URL。首选**客户端模型模式**：MCP 返回提示词，由 Codex/Workbuddy 自己的大模型生成（建模 JSON/图片）再回传本地构建导出，3D 带多轮自评修正循环，不依赖 `.env` 里的特定模型；也保留服务端模型模式作备选。前端大文件资源通过 GitHub Release（`frontend-assets-v1`）分发，首次安装自动下载。
+`mcp/server.mjs` 提供零依赖的 stdio MCP 服务：MCP 客户端可从 GitHub 克隆本工程、自动安装构建并启动本地服务，然后调用文生图、图生图、文生3D、图生3D，或取得可供内嵌浏览器打开的工作台 URL。
+
+**它只提供工具，不调用任何大模型，也不需要模型密钥。** 出图提示词与建模提示词由 MCP 返回，图片和建模 JSON 由 Codex / Workbuddy 自己的大模型生成后再回传；服务端只负责本地几何构建、校验、渲染导出、保存与登记，并返回展示页面（图片 `/workspace/2006`、3D `/workspace/2011`）。工程网页工作台自己的 `.env` 模型配置与本 MCP 无关。前端大文件资源通过 GitHub Release（`frontend-assets-v1`）分发，首次安装自动下载。
 
 ### 让 Codex / Workbuddy 安装并使用
 
@@ -41,7 +43,7 @@ npm run build
    git clone https://github.com/roryyu/zhubao.git
    ```
 
-2. 在 MCP 客户端注册服务，命令指向克隆目录里的 `mcp/server.mjs`，用 `env` 注入你自己的模型接口（键名与 [.env.example](.env.example) 一致，详见 [模型配置.md](模型配置.md)）：
+2. 在 MCP 客户端注册服务，命令指向克隆目录里的 `mcp/server.mjs`。**不需要配置模型地址或 API Key**，只需 Node.js ≥ 24：
 
    **Codex**（`~/.codex/config.toml`）：
 
@@ -51,16 +53,14 @@ npm run build
    args = ["/absolute/path/zhubao/mcp/server.mjs"]
    startup_timeout_sec = 30
    tool_timeout_sec = 1800   # 首次安装要下载约 1.3 GB 前端资源
+   ```
 
+   只有需要指定已有 checkout 或换端口时才加环境变量：
+
+   ```toml
    [mcp_servers.cjzbai.env]
-   IMAGE_BASE_URL = "https://your-image-endpoint/v1"
-   IMAGE_API_KEY = "sk-..."
-   IMAGE_MODEL = "your-image-model"
-   IMAGE_API_STYLE = "auto"   # auto / images / chat / dashscope
-   CHAT_BASE_URL = "https://your-chat-endpoint/v1"
-   CHAT_API_KEY = "sk-..."
-   CHAT_MODEL = "your-vision-chat-model"   # 3D 建模需视觉对话模型
-   CHAT_VISION = "true"
+   CJZBAI_PROJECT_DIR = "/path/to/zhubao"
+   CJZBAI_PORT = "4174"
    ```
 
    **Workbuddy / 其他 MCP 客户端**（JSON 配置）：
@@ -70,23 +70,14 @@ npm run build
      "mcpServers": {
        "cjzbai": {
          "command": "node",
-         "args": ["/absolute/path/zhubao/mcp/server.mjs"],
-         "env": {
-           "IMAGE_BASE_URL": "https://your-image-endpoint/v1",
-           "IMAGE_API_KEY": "sk-...",
-           "IMAGE_MODEL": "your-image-model",
-           "CHAT_BASE_URL": "https://your-chat-endpoint/v1",
-           "CHAT_API_KEY": "sk-...",
-           "CHAT_MODEL": "your-vision-chat-model",
-           "CHAT_VISION": "true"
-         }
+         "args": ["/absolute/path/zhubao/mcp/server.mjs"]
        }
      }
    }
    ```
 
-3. 在对话里让 Agent 调用 `setup`（或直接提生成需求）：首次会自动把运行实例安装到 `~/.cjzbai-mcp/zhubao`（克隆、下载前端资源、安装构建、写 `.env`、启动服务，需数分钟），之后秒级就绪。已有本地 checkout 时，可设 `CJZBAI_PROJECT_DIR` 指向它，复用现有 `.env` 与历史数据。
-4. 可选：把 [mcp/SKILL.md](mcp/SKILL.md) 安装为 Agent Skill（如 Codex 的 `~/.codex/skills/cjzbai/SKILL.md`），让 Agent 掌握异步任务轮询、参考图上传与结果交付的调用规范。
+3. 在对话里让 Agent 调用 `setup`（或直接提生成需求）：首次会自动把运行实例安装到 `~/.cjzbai-mcp/zhubao`（克隆、下载前端资源、安装构建、启动服务，需数分钟），之后秒级就绪，不写入任何模型配置。已有本地 checkout 时，可设 `CJZBAI_PROJECT_DIR` 指向它，复用历史任务与生成结果。
+4. 可选：把 [mcp/SKILL.md](mcp/SKILL.md) 安装为 Agent Skill（如 Codex 的 `~/.codex/skills/cjzbai/SKILL.md`），让 Agent 掌握提示词往返、图片回传与结果交付的调用规范。
 
 环境变量、工具参数与排障见 [mcp/README.md](mcp/README.md)。
 

@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 // 无觉珠宝 AI 本地版 · MCP 服务（零依赖，stdio JSON-RPC）
 //
-// 能力：从 GitHub 克隆工程 → 下载前端资源包 → 安装构建 → 写入模型配置 →
-// 启动本地服务，然后通过 MCP 工具调用文生图 / 图生图 / 文生3D / 图生3D，
-// 并返回可供内嵌浏览器打开的工作台 URL。
+// 职责边界：本服务只提供工具和本地算力，不调用任何大模型，也不需要模型密钥。
+//   - 从 GitHub 克隆工程 → 下载前端资源包 → 安装构建 → 启动本地服务；
+//   - 向调用方 Agent（Codex / Workbuddy / Claude Code 等）返回提示词、参考图 URL；
+//     由 Agent 用自己的大模型生成图片或建模 JSON，再回传本服务；
+//   - 本服务只做本地几何构建、校验、渲染导出和页面展示。
+//   工程自带的网页工作台（/workspace/*）用工程自己的 .env 模型配置，与 MCP 无关；
+//   MCP 不读取、不写入、不改造该 .env。
 //
 // 配置全部走 MCP 客户端的环境变量（见 mcp/README.md）：
 //   CJZBAI_PROJECT_DIR  工程目录，默认 ~/.cjzbai-mcp/zhubao（不存在时自动克隆）
 //   CJZBAI_REPO_URL     仓库地址，默认 https://github.com/roryyu/zhubao.git
 //   CJZBAI_ASSETS_URL   前端资源包地址（GitHub Release 或本地 tar 路径）
 //   CJZBAI_PORT         本地服务端口，默认 4174
-//   IMAGE_* / CHAT_* / MODEL3D_*  模型配置，透传写入工程 .env
 //
 // stdout 只输出 JSON-RPC 协议消息，日志一律走 stderr。
 
@@ -38,16 +41,6 @@ const baseUrl = `http://127.0.0.1:${port}`;
 const pidFile = join(stateDir, `server-${port}.pid`);
 const logFile = join(stateDir, `server-${port}.log`);
 const npmBin = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-
-// 允许从 MCP 环境变量透传进工程 .env 的模型配置键。
-const ENV_KEYS = [
-  'IMAGE_PROVIDER', 'IMAGE_BASE_URL', 'IMAGE_API_KEY', 'IMAGE_MODEL', 'IMAGE_API_STYLE',
-  'IMAGE_SIZE', 'IMAGE_TIMEOUT_MS', 'IMAGE_ALLOW_NO_KEY',
-  'CHAT_PROVIDER', 'CHAT_BASE_URL', 'CHAT_API_KEY', 'CHAT_MODEL', 'CHAT_TIMEOUT_MS',
-  'CHAT_VISION', 'CHAT_ALLOW_NO_KEY',
-  'MODEL3D_PROVIDER', 'MODEL3D_BASE_URL', 'MODEL3D_API_KEY', 'MODEL3D_MODEL',
-  'MODEL3D_TIMEOUT_MS', 'MODEL3D_ALLOW_NO_KEY', 'MODEL3D_REFINE_ROUNDS', 'MODEL3D_ANALYZE', 'MODEL3D_MAX_TOKENS',
-];
 
 const log = (...args) => console.error(`[${SERVER_NAME}]`, ...args);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -132,31 +125,6 @@ async function downloadAssets() {
   if (!existsSync(join(projectDir, 'captured', 'index.html'))) throw new Error('前端资源包内容不完整：缺少 captured/index.html');
 }
 
-function syncEnv() {
-  const envPath = join(projectDir, '.env');
-  const provided = ENV_KEYS.filter(key => typeof process.env[key] === 'string');
-  const existing = existsSync(envPath) ? readFileSync(envPath, 'utf8') : null;
-  if (!provided.length) {
-    if (existing === null) {
-      writeFileSync(envPath, readFileSync(join(projectDir, '.env.example'), 'utf8'));
-      log('未提供模型配置，已复制 .env.example；生成前请配置 IMAGE_* / CHAT_* 环境变量');
-      return true;
-    }
-    return false; // 保留用户已有 .env，不做任何改动
-  }
-  const lines = (existing ?? '').split('\n');
-  for (const key of provided) {
-    const line = `${key}=${process.env[key]}`;
-    const index = lines.findIndex(l => l.startsWith(key + '=') || l.startsWith('#' + key + '='));
-    if (index >= 0) lines[index] = line; else lines.push(line);
-  }
-  const next = lines.join('\n');
-  if (next === existing) return false;
-  writeFileSync(envPath, next);
-  log('已更新工程 .env 模型配置（密钥不写入日志）');
-  return true;
-}
-
 async function startServer() {
   mkdirSync(stateDir, { recursive: true });
   const fd = openSync(logFile, 'a');
@@ -211,13 +179,8 @@ async function doEnsureReady({ relief = false } = {}) {
     await run(npmBin, ['run', 'setup:geometry']);
   }
 
-  const envChanged = syncEnv();
   const running = await health();
-  if (running) {
-    if (envChanged) log('注意：.env 已更新，但当前端口由外部启动的服务占用，需手动重启该服务后新模型配置才生效');
-    return running;
-  }
-  if (envChanged) await stopOwnedServer();
+  if (running) return running; // 已有实例（含用户自己启动的）直接复用，不改动其配置
   const pid = readPid();
   if (pid) {
     const info = await waitHealth(15); // 可能正在启动中
@@ -281,14 +244,6 @@ async function busyError() {
   return new Error('本地服务同一时间只允许一个生成任务，请等待当前任务完成后再提交');
 }
 
-async function submitTask(appNumber, params) {
-  await ensureReady();
-  const res = await api('POST', '/api/unified/submit-task', { appNumber, params });
-  if (res.code === 40901) throw await busyError();
-  if (res.code !== 0) throw new Error(res.msg || '任务提交失败');
-  return res.data.task_id;
-}
-
 function localPath(url) {
   try {
     const parsed = new URL(url, baseUrl);
@@ -341,21 +296,6 @@ async function getTask(taskId, waitSeconds = 0) {
   }
 }
 
-async function submitAndMaybeWait(appNumber, params, waitSeconds) {
-  const taskId = await submitTask(appNumber, params);
-  const wait = Math.max(0, Math.min(110, Number(waitSeconds) || 0));
-  if (wait > 0) return getTask(taskId, wait);
-  return { task_id: taskId, status: 'running', hint: '生成是异步的，用 get_task（可带 wait_seconds）轮询结果；图片约 1 分钟，3D 建模可能需要数分钟' };
-}
-
-function imageParams(args, urls) {
-  const params = { prompt: args.prompt };
-  if (urls?.length) params.image = urls;
-  if (args.aspect_ratio) params.aspectRatio = args.aspect_ratio;
-  if (args.size) params.imageSize = args.size;
-  return params;
-}
-
 async function openWorkspace(openBrowser) {
   await ensureReady();
   const url = `${baseUrl}/workspace/2020`;
@@ -372,17 +312,17 @@ async function status() {
   const info = await health();
   const result = {
     project_dir: projectDir,
+    mode: 'client-model', // 本 MCP 不调用任何模型；提示词交给调用方 Agent 生成
     installed,
     frontend_assets: existsSync(join(projectDir, 'captured', 'index.html')),
     built: existsSync(join(projectDir, 'dist', 'index.html')),
     dependencies: existsSync(join(projectDir, 'node_modules', 'three')),
-    env_file: existsSync(join(projectDir, '.env')),
+    render_previews: existsSync(join(projectDir, '.venv-geometry', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python')),
     server_running: Boolean(info),
     port,
     workspace_url: `${baseUrl}/workspace/2020`,
   };
-  if (info) result.models = info.models;
-  if (!installed) result.hint = '工程尚未安装，调用 setup 或任意生成工具会自动从 GitHub 克隆并安装';
+  if (!installed) result.hint = '工程尚未安装，调用 setup 或任意工具会自动从 GitHub 克隆并安装';
   else if (!info) result.hint = '本地服务未运行，调用 setup 或任意生成工具会自动启动';
   return result;
 }
@@ -394,22 +334,22 @@ const waitSecondsSchema = { type: 'number', description: '提交后同步等待�
 const TOOLS = [
   {
     name: 'setup',
-    description: '安装并启动无觉珠宝 AI 本地版：从 GitHub 克隆工程、下载前端资源包、npm 安装构建、写入模型配置并启动本地服务。幂等，可重复调用；首次约需数分钟（下载约 1.3 GB 前端资源）。',
+    description: '安装并启动无觉珠宝 AI 本地版：从 GitHub 克隆工程、下载前端资源包、npm 安装构建、启动本地服务。幂等，可重复调用；首次约需数分钟（下载约 1.3 GB 前端资源）。本服务不读取、不写入任何模型配置或密钥。',
     inputSchema: {
       type: 'object',
       properties: {
-        relief: { type: 'boolean', description: '是否同时准备图片转浮雕环境（Python + 100 MB 深度模型）。文生图/图生图/3D 不需要', default: false },
+        relief: { type: 'boolean', description: '是否同时准备 Python 几何环境（三视角预览渲染，约 100 MB）。3D 自评修正需要它；未安装时自评自动跳过', default: false },
       },
     },
   },
   {
     name: 'status',
-    description: '查看安装状态、本地服务健康状态与当前模型配置（不触发安装，不返回密钥）。',
+    description: '查看安装状态与本地服务健康状态（不触发安装，不返回密钥）。',
     inputSchema: { type: 'object', properties: {} },
   },
   {
     name: 'prepare_image',
-    description: '文生图/图生图（客户端模型模式，推荐）：返回合成好的出图提示词与参考图 URL，由客户端（Codex/Workbuddy）自己的图像模型生成图片，再用 submit_image 回传保存。不依赖服务端 .env 模型。',
+    description: '文生图/图生图（第一步）：返回合成好的出图提示词与参考图 URL。本服务不出图，请调用方 Agent 用自己的图像生成能力按 prompt 出图，再调用 submit_image 回传保存。',
     inputSchema: {
       type: 'object',
       properties: {
@@ -435,7 +375,7 @@ const TOOLS = [
   },
   {
     name: 'prepare_3d',
-    description: '文生3D/图生3D（客户端模型模式，推荐）：返回建模提示词（system_prompt/user_prompt）与参考图，由客户端自己的大模型输出建模 JSON，再用 submit_3d 回传；服务端本地构建几何并可能返回自评修正提示词，循环直到完成。不依赖服务端 .env 模型。',
+    description: '文生3D/图生3D（第一步）：返回建模提示词（system_prompt / user_prompt）与参考图 URL。本服务不调模型，请调用方 Agent 用自己的大模型按提示词输出建模 JSON，再调用 submit_3d 回传；服务端本地构建几何并可能返回自评修正提示词，循环直到完成。',
     inputSchema: {
       type: 'object',
       properties: {
@@ -456,60 +396,6 @@ const TOOLS = [
         output: { description: '客户端模型返回的 JSON（对象或字符串均可，按当前 stage 的契约：分析 parts / CadModel / verdict）' },
       },
       required: ['task_id', 'output'],
-    },
-  },
-  {
-    name: 'text_to_image',
-    description: '文生图（服务端模型模式，备选）：调用服务端 .env 配置的图像模型出图。客户端自身有图像生成能力时优先用 prepare_image + submit_image。异步任务。',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        prompt: { type: 'string', description: '设计需求描述，建议写清材质、宝石、镶嵌结构与风格' },
-        aspect_ratio: { type: 'string', description: '画幅比例，如 1:1、3:4、16:9，默认 1:1' },
-        size: { type: 'string', enum: ['1K', '2K'], description: '清晰度档位，默认 2K；当前模型不支持 4K' },
-        wait_seconds: waitSecondsSchema,
-      },
-      required: ['prompt'],
-    },
-  },
-  {
-    name: 'image_to_image',
-    description: '图生图（服务端模型模式，备选）：上传 1-4 张参考图，由服务端 .env 配置的图像模型修改/融合/精修。异步任务。',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        prompt: { type: 'string', description: '修改需求，例如「把黄色金属改为白色金属，保留款式」' },
-        images: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 4, description: '参考图列表：本地文件路径、http(s) URL 或本服务 /uploads|/generated 地址' },
-        aspect_ratio: { type: 'string', description: '画幅比例，如 1:1、3:4' },
-        size: { type: 'string', enum: ['1K', '2K'], description: '清晰度档位，默认 2K' },
-        wait_seconds: waitSecondsSchema,
-      },
-      required: ['prompt', 'images'],
-    },
-  },
-  {
-    name: 'text_to_3d',
-    description: '文生3D（服务端模型模式，备选）：由服务端 .env 配置的视觉对话模型生成参数化实体模型。客户端自己有强模型时优先用 prepare_3d + submit_3d。可能需要数分钟。',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        prompt: { type: 'string', description: '建模需求，务必包含必要尺寸（如戒圈直径 17mm、主石 8mm）' },
-        wait_seconds: waitSecondsSchema,
-      },
-      required: ['prompt'],
-    },
-  },
-  {
-    name: 'image_to_3d',
-    description: '图生3D（服务端模型模式，备选）：由服务端 .env 配置的视觉对话模型分析参考图并建模。客户端自己有强模型时优先用 prepare_3d + submit_3d。可能需要数分钟。',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        image: { type: 'string', description: '参考图：本地文件路径、http(s) URL 或本服务 /uploads|/generated 地址' },
-        prompt: { type: 'string', description: '可选补充说明，如尺寸、材质或结构要求' },
-        wait_seconds: waitSecondsSchema,
-      },
-      required: ['image'],
     },
   },
   {
@@ -568,8 +454,8 @@ async function imageToDataUrl(input) {
 async function callTool(name, args) {
   switch (name) {
     case 'setup': {
-      const info = await ensureReady({ relief: Boolean(args.relief) });
-      return { ok: true, workspace_url: `${baseUrl}/workspace/2020`, project_dir: projectDir, models: info.models };
+      await ensureReady({ relief: Boolean(args.relief) });
+      return { ok: true, mode: 'client-model', workspace_url: `${baseUrl}/workspace/2020`, project_dir: projectDir, note: '本服务不调用大模型；用 prepare_image / prepare_3d 取提示词，由你自己的模型生成后回传' };
     }
     case 'status':
       return status();
@@ -608,29 +494,6 @@ async function callTool(name, args) {
       const res = await api('POST', '/api/agent/3d/submit', { task_id: args.task_id, output: args.output });
       if (res.code !== 0) throw new Error(res.msg || '建模结果回传失败');
       return res.data;
-    }
-    case 'text_to_image': {
-      if (!String(args.prompt || '').trim()) throw new Error('缺少 prompt');
-      return submitAndMaybeWait(2006, imageParams(args), args.wait_seconds);
-    }
-    case 'image_to_image': {
-      if (!String(args.prompt || '').trim()) throw new Error('缺少 prompt');
-      if (!Array.isArray(args.images) || !args.images.length) throw new Error('缺少参考图 images');
-      await ensureReady();
-      const urls = [];
-      for (const image of args.images.slice(0, 4)) urls.push(await resolveImage(image));
-      return submitAndMaybeWait(2006, imageParams(args, urls), args.wait_seconds);
-    }
-    case 'text_to_3d': {
-      if (!String(args.prompt || '').trim()) throw new Error('缺少 prompt');
-      return submitAndMaybeWait(2011, { mode: 'text', prompt: args.prompt }, args.wait_seconds);
-    }
-    case 'image_to_3d': {
-      await ensureReady();
-      const imageUrl = await resolveImage(args.image);
-      const params = { mode: 'image', imageUrl };
-      if (String(args.prompt || '').trim()) params.prompt = args.prompt;
-      return submitAndMaybeWait(2011, params, args.wait_seconds);
     }
     case 'get_task': {
       if (!args.task_id) throw new Error('缺少 task_id');
@@ -673,11 +536,12 @@ function replyError(id, code, message) {
 }
 
 const INSTRUCTIONS = [
-  '无觉珠宝 AI 本地版 MCP：文生图、图生图、文生3D、图生3D 与本地工作台页面。',
-  '首选客户端模型模式（不依赖服务端 .env）：prepare_image/prepare_3d 返回提示词 → 你用自己的大模型生成（图片/建模 JSON）→ submit_image/submit_3d 回传 → 服务端处理；3D 可能返回下一轮自评提示词，循环直到 status=succeeded，最后用返回的 URL 展示图片/3D 页面。',
-  '备选服务端模型模式：text_to_image/image_to_image/text_to_3d/image_to_3d 调用 .env 配置的模型，异步返回 task_id，用 get_task 轮询。',
+  '无觉珠宝 AI 本地版 MCP：提供珠宝文生图 / 图生图 / 文生3D / 图生3D 的提示词、参考图与本地几何算力，并返回可展示的页面 URL。',
+  '本服务不调用任何大模型，也不需要 API 密钥；图片与 3D 建模结果必须由你（调用方 Agent）用自己的模型生成：',
+  '  图片：prepare_image 取出图提示词与参考图 → 你用自己的图像生成能力出图 → submit_image 回传图片。',
+  '  3D：prepare_3d 取建模提示词 → 你用自己的大模型输出建模 JSON → submit_3d 回传；服务端本地构建几何，可能返回修正或自评提示词，循环直到 status=succeeded。',
+  '完成后用返回的 view_url（图片 /workspace/2006，3D /workspace/2011）在内嵌浏览器展示；结果文件在运行实例 data/generated/。',
   '首次调用会自动从 GitHub 克隆工程、下载前端资源并安装启动（需数分钟）；同一时间只允许一个生成任务。',
-  'open_workspace 返回的 URL 可用内嵌浏览器打开；结果文件在运行实例 data/generated/。',
 ].join('\n');
 
 async function handleMessage(message) {
