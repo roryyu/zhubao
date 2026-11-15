@@ -1,0 +1,2 @@
+# 原站前端骨架按原始字节分发：禁止行尾转换，避免 clone 后与 build 输入不一致
+captured/** -text -diff

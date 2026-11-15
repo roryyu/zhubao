@@ -2,10 +2,11 @@ import { cp, readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { dirname, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { constants } from 'node:fs';
+import { constants, existsSync } from 'node:fs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = resolve(root, 'dist');
+if (!existsSync(resolve(root, 'captured/index.html'))) throw new Error('缺少前端骨架 captured/index.html：请在工程目录执行 git pull 获取最新代码。captured/media（原站宣传素材）不参与构建，缺失不影响生成能力。');
 await mkdir(dist, { recursive: true });
 await cp(resolve(root, 'captured'), dist, { recursive: true, mode: constants.COPYFILE_FICLONE, filter: source => !source.endsWith('.partial') });
 const changes = [];

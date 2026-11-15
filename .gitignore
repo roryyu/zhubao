@@ -5,7 +5,14 @@ data/
 .venv-geometry/
 node_modules/
 dist/
-captured/
+# captured 只纳入构建必需的前端骨架（约 24 MB）：入口页、SPA 资源、本地补丁资源。
+# captured/media 是原站宣传视频与作品图（约 1.3 GB），不参与构建，也不进版本管理。
+captured/*
+!captured/index.html
+!captured/favicon.ico
+!captured/tw3.4.16.js
+!captured/assets/
+!captured/local/
 # evidence 默认忽略，但 ui-config-assets.json 是构建必需输入，纳入版本管理
 evidence/*
 !evidence/ui-config-assets.json

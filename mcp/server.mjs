@@ -2,7 +2,7 @@
 // 无觉珠宝 AI 本地版 · MCP 服务（零依赖，stdio JSON-RPC）
 //
 // 职责边界：本服务只提供工具和本地算力，不调用任何大模型，也不需要模型密钥。
-//   - 从 GitHub 克隆工程 → 下载前端资源包 → 安装构建 → 启动本地服务；
+//   - 从 GitHub 克隆工程 → npm ci → 构建前端（构建骨架随仓库分发，约 24 MB）→ 启动本地服务；
 //   - 向调用方 Agent（Codex / Workbuddy / Claude Code 等）返回提示词、参考图 URL；
 //     由 Agent 用自己的大模型生成图片或建模 JSON，再回传本服务；
 //   - 本服务只做本地几何构建、校验、渲染导出和页面展示。
@@ -12,7 +12,7 @@
 // 配置全部走 MCP 客户端的环境变量（见 mcp/README.md）：
 //   CJZBAI_PROJECT_DIR  工程目录，默认 ~/.cjzbai-mcp/zhubao（不存在时自动克隆）
 //   CJZBAI_REPO_URL     仓库地址，默认 https://github.com/roryyu/zhubao.git
-//   CJZBAI_ASSETS_URL   前端资源包地址（GitHub Release 或本地 tar 路径）
+//   CJZBAI_ASSETS_URL   可选：额外资源包地址（补齐骨架或下放原站 media），默认不下载
 //   CJZBAI_PORT         本地服务端口，默认 4174
 //
 // stdout 只输出 JSON-RPC 协议消息，日志一律走 stderr。
@@ -35,7 +35,8 @@ const PROTOCOL_VERSION = '2025-06-18';
 const projectDir = resolve(process.env.CJZBAI_PROJECT_DIR || join(homedir(), '.cjzbai-mcp', 'zhubao'));
 const stateDir = resolve(process.env.CJZBAI_STATE_DIR || join(homedir(), '.cjzbai-mcp'));
 const repoUrl = process.env.CJZBAI_REPO_URL || 'https://github.com/roryyu/zhubao.git';
-const assetsUrl = process.env.CJZBAI_ASSETS_URL || 'https://github.com/roryyu/zhubao/releases/download/frontend-assets-v1/frontend-assets.tar';
+// 前端骨架（captured/index.html + assets）随仓库分发；该地址只用于补齐缺失资源或额外下发原站 media。
+const assetsUrl = process.env.CJZBAI_ASSETS_URL || '';
 const port = Number(process.env.CJZBAI_PORT || 4174);
 const baseUrl = `http://127.0.0.1:${port}`;
 const pidFile = join(stateDir, `server-${port}.pid`);
@@ -107,6 +108,7 @@ async function api(method, path, body) {
 // ---------- 自举安装 ----------
 
 async function downloadAssets() {
+  if (!assetsUrl) throw new Error('前端资源缺失，但未设置 CJZBAI_ASSETS_URL；请在工程目录执行 git pull 获取骨架，或把 CJZBAI_ASSETS_URL 指向资源包');
   mkdirSync(stateDir, { recursive: true });
   let tarPath;
   if (!/^https?:\/\//.test(assetsUrl) && existsSync(assetsUrl)) {
@@ -163,8 +165,10 @@ async function doEnsureReady({ relief = false } = {}) {
     mkdirSync(stateDir, { recursive: true });
     await run('git', ['clone', '--depth', '1', repoUrl, projectDir], { cwd: stateDir });
   }
-  if (!existsSync(join(projectDir, 'captured', 'index.html')) || !existsSync(join(projectDir, 'evidence', 'ui-config-assets.json'))) {
-    await downloadAssets();
+  const missing = ['captured/index.html', 'evidence/ui-config-assets.json'].filter(p => !existsSync(join(projectDir, p)));
+  if (missing.length) {
+    if (assetsUrl) await downloadAssets();
+    else throw new Error(`工程文件不完整，缺少 ${missing.join('、')}：请在 ${projectDir} 执行 git pull 获取最新代码`);
   }
   if (!existsSync(join(projectDir, 'node_modules', 'three'))) {
     progress('正在安装 JavaScript 依赖（npm ci）');
@@ -315,6 +319,7 @@ async function status() {
     mode: 'client-model', // 本 MCP 不调用任何模型；提示词交给调用方 Agent 生成
     installed,
     frontend_assets: existsSync(join(projectDir, 'captured', 'index.html')),
+    media_assets: existsSync(join(projectDir, 'captured', 'media')),
     built: existsSync(join(projectDir, 'dist', 'index.html')),
     dependencies: existsSync(join(projectDir, 'node_modules', 'three')),
     render_previews: existsSync(join(projectDir, '.venv-geometry', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python')),

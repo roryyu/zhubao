@@ -33,7 +33,7 @@ npm run build
 
 `mcp/server.mjs` 提供零依赖的 stdio MCP 服务：MCP 客户端可从 GitHub 克隆本工程、自动安装构建并启动本地服务，然后调用文生图、图生图、文生3D、图生3D，或取得可供内嵌浏览器打开的工作台 URL。
 
-**它只提供工具，不调用任何大模型，也不需要模型密钥。** 出图提示词与建模提示词由 MCP 返回，图片和建模 JSON 由 Codex / Workbuddy 自己的大模型生成后再回传；服务端只负责本地几何构建、校验、渲染导出、保存与登记，并返回展示页面（图片 `/workspace/2006`、3D `/workspace/2011`）。工程网页工作台自己的 `.env` 模型配置与本 MCP 无关。前端大文件资源通过 GitHub Release（`frontend-assets-v1`）分发，首次安装自动下载。
+**它只提供工具，不调用任何大模型，也不需要模型密钥。** 出图提示词与建模提示词由 MCP 返回，图片和建模 JSON 由 Codex / Workbuddy 自己的大模型生成后再回传；服务端只负责本地几何构建、校验、渲染导出、保存与登记，并返回展示页面（图片 `/workspace/2006`、3D `/workspace/2011`）。工程网页工作台自己的 `.env` 模型配置与本 MCP 无关。前端构建骨架（入口页 + SPA 资源 + 本地补丁，约 24 MB）随仓库分发，克隆后即可直接构建；原站宣传视频与作品图（`captured/media`，约 1.3 GB）不参与构建，也不进仓库。
 
 ### 让 Codex / Workbuddy 安装并使用
 
@@ -52,7 +52,7 @@ npm run build
    command = "node"   # 建议写 node 绝对路径，需 Node.js ≥ 24
    args = ["/absolute/path/zhubao/mcp/server.mjs"]
    startup_timeout_sec = 30
-   tool_timeout_sec = 1800   # 首次安装要下载约 1.3 GB 前端资源
+   tool_timeout_sec = 1800   # 首次安装需 npm ci 与构建前端
    ```
 
    只有需要指定已有 checkout 或换端口时才加环境变量：

@@ -2,7 +2,7 @@
 
 `mcp/server.mjs` 是零依赖的 stdio MCP 服务，让 Codex、Workbuddy 等 MCP 客户端能够：
 
-1. **自动安装**：从 GitHub 克隆本工程 → 下载前端资源包（Release，约 1.3 GB）→ `npm ci` → `npm run build` → 启动本地服务；
+1. **自动安装**：从 GitHub 克隆本工程 → `npm ci` → `npm run build` → 启动本地服务（构建骨架随仓库分发，约 24 MB，无需额外下载）；
 2. **提供生成链路**：文生图、图生图、文生3D、图生3D 的提示词、参考图与本地几何算力；
 3. **打开页面**：返回可供内嵌浏览器打开的工作台 URL。
 
@@ -31,7 +31,7 @@ git clone https://github.com/roryyu/zhubao.git
 command = "node"   # 建议写 node 绝对路径，避免 nvm 环境差异
 args = ["/absolute/path/zhubao/mcp/server.mjs"]
 startup_timeout_sec = 30
-tool_timeout_sec = 1800   # 首次安装需下载约 1.3 GB 资源，放宽工具超时
+tool_timeout_sec = 1800   # 首次安装需 npm ci 与构建前端，放宽工具超时
 ```
 
 不需要 `env` 模型配置。只有要换目录或端口时才加：
@@ -67,7 +67,7 @@ CJZBAI_PORT = "4174"
 | --- | --- | --- |
 | `CJZBAI_PROJECT_DIR` | `~/.cjzbai-mcp/zhubao` | 运行实例目录；不存在时自动克隆。指向已有 checkout 可复用其历史任务与生成结果 |
 | `CJZBAI_REPO_URL` | `https://github.com/roryyu/zhubao.git` | 克隆来源 |
-| `CJZBAI_ASSETS_URL` | Release `frontend-assets-v1/frontend-assets.tar` | 前端资源包；也可填本地 tar 路径离线安装 |
+| `CJZBAI_ASSETS_URL` | （未设置） | 可选：额外资源包地址（GitHub Release 或本地 tar）。构建骨架已在仓库中，一般不需要；仅当要补齐缺失资源或额外下发原站 media 时才设 |
 | `CJZBAI_PORT` | `4174` | 本地服务端口（仅监听 127.0.0.1） |
 | `CJZBAI_STATE_DIR` | `~/.cjzbai-mcp` | pid / 服务日志 / 资源包缓存目录 |
 
@@ -99,5 +99,5 @@ CJZBAI_PORT = "4174"
 
 - 本地服务由 MCP 以独立进程启动，MCP 退出后继续运行；日志在 `CJZBAI_STATE_DIR/server-<port>.log`。
 - 端口被其他程序占用时设置 `CJZBAI_PORT`；若端口上已有本项目服务（例如手动 `npm start`），MCP 直接复用，不会杀掉它。
-- 前端资源包下载失败可重试 `setup`（断点步骤幂等）；离线环境把 `CJZBAI_ASSETS_URL` 指向本地 tar。
+- 前端骨架（`captured/index.html` + `assets`）随仓库分发，`setup` 不需要下载外部资源；原站 `captured/media` 缺失只影响页面上的作品/宣传素材展示，不影响出图与建模。若自行准备了资源包，可把 `CJZBAI_ASSETS_URL` 指向它。
 - 手动验证协议：`echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node mcp/server.mjs`。
